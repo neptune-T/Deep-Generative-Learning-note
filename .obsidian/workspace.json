@@ -1,0 +1,214 @@
+{
+  "main": {
+    "id": "74b3f1cd55f9d56e",
+    "type": "split",
+    "children": [
+      {
+        "id": "d68ca2896a57f397",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c507fcb1ac72bf28",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "学习内容/师姐论文/张静雯.pdf"
+              }
+            }
+          },
+          {
+            "id": "9a2db269abf542d5",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.6.5"
+              }
+            }
+          },
+          {
+            "id": "227068b83cf2ba83",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "note/Autoencoder/Autoencoder.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "7326bf8e021c0b54",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "diary/2024-07-01😊.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "15164092c67e8532",
+    "type": "split",
+    "children": [
+      {
+        "id": "0116cb41f976964e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8e180556b75fb40d",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "d4222be4e0717d4d",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "9b8627288024ac8f",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "695536c98cf6a8f3",
+    "type": "split",
+    "children": [
+      {
+        "id": "81c45eadd2f24807",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "22d00ca35936f404",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "diary/2024-07-01😊.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "b5be28f26444e63a",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "diary/2024-07-01😊.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "f180e09d4bf39ee3",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "4218fc94c4ba0b6b",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "diary/2024-07-01😊.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "7326bf8e021c0b54",
+  "lastOpenFiles": [
+    "note/PCA/PCA - Principal Component Analysis.md",
+    "diary/2024-07-01😊.md",
+    "note/Autoencoder/Autoencoder.md",
+    "Welcome.md",
+    "note/Autoencoder",
+    "note/PCA/pca.ipynb",
+    "note/pca.ipynb",
+    "note/PCA - Principal Component Analysis.md",
+    "note/PCA/pygeo-tutorial/pca.ipynb",
+    "note/PCA/pygeo-tutorial/轨道客流可视化！shapely初探.ipynb",
+    "note/PCA/pygeo-tutorial/用道路切分地块！shapely的线转面处理！.ipynb",
+    "note/PCA/pygeo-tutorial/抓微博!微博评论关系可视化.ipynb",
+    "note/PCA/pygeo-tutorial/微博评论关系图.html",
+    "note/PCA/pygeo-tutorial/广东疫情地图.html",
+    "note/PCA/pygeo-tutorial/shapefile/sz.shx",
+    "note/PCA/pygeo-tutorial/resource/社区发现2.png",
+    "note/PCA/pygeo-tutorial/resource/社区发现.png",
+    "note/PCA/pygeo-tutorial/resource/广东疫情地图.png",
+    "note/PCA/pygeo-tutorial/resource/地图v1.png",
+    "note/PCA/pygeo-tutorial/resource/地图2.png",
+    "note/PCA/pygeo-tutorial/resource/zhuabao6.png",
+    "note/PCA/pygeo-tutorial/resource/zhuabao5.png",
+    "note/PCA/pygeo-tutorial/resource/zhuabao4.png",
+    "note/PCA/pygeo-tutorial/resource/zhuabao3.png",
+    "note/PCA/pygeo-tutorial/resource/zhuabao2.png",
+    "note/PCA/pygeo-tutorial/README.md",
+    "note/PCA/pygeo-tutorial/README - en.md",
+    "未命名.canvas",
+    "2024-06-20.md"
+  ]
+}
