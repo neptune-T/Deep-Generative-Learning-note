@@ -35,6 +35,7 @@ $$
 
 ### 什么是协方差？
 
+
 $$
 \operatorname{cov}(x,y)= \frac{\sum_{i=1}^n \left(x_i-\bar{x}\right)\left(y_i-\bar{y}\right)}{n-1}
 $$

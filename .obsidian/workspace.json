@@ -48,9 +48,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "4196c50afc006c1e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "note/PCA/PCA - Principal Component Analysis.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -177,12 +189,16 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "7326bf8e021c0b54",
+  "active": "4196c50afc006c1e",
   "lastOpenFiles": [
-    "note/PCA/template.typ",
-    "note/PCA/pca.pdf",
+    "diary/2024-07-04.md",
+    "diary/2024-07-03😭.md",
     "diary/2024-07-01😊.md",
+    "diary/2024-07-02🥰.md",
     "note/PCA/PCA - Principal Component Analysis.md",
+    "note/PCA/pca.pdf",
+    "未命名.md",
+    "note/PCA/template.typ",
     "note/Autoencoder/Autoencoder.md",
     "Welcome.md",
     "note/Autoencoder",
@@ -194,7 +210,6 @@
     "note/PCA/pygeo-tutorial/用道路切分地块！shapely的线转面处理！.ipynb",
     "note/PCA/pygeo-tutorial/抓微博!微博评论关系可视化.ipynb",
     "note/PCA/pygeo-tutorial/微博评论关系图.html",
-    "note/PCA/pygeo-tutorial/广东疫情地图.html",
     "note/PCA/pygeo-tutorial/resource/社区发现2.png",
     "note/PCA/pygeo-tutorial/resource/社区发现.png",
     "note/PCA/pygeo-tutorial/resource/广东疫情地图.png",
