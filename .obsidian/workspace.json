@@ -50,12 +50,12 @@
             }
           },
           {
-            "id": "4196c50afc006c1e",
+            "id": "6f402d875367971d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "note/PCA/PCA - Principal Component Analysis.md",
+                "file": "diary/2024-07-05😪.md",
                 "mode": "source",
                 "source": false
               }
@@ -128,7 +128,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "note/PCA/PCA - Principal Component Analysis.md",
+                "file": "diary/2024-07-05😪.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -145,7 +145,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "note/PCA/PCA - Principal Component Analysis.md",
+                "file": "diary/2024-07-05😪.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -168,16 +168,16 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "note/PCA/PCA - Principal Component Analysis.md"
+                "file": "diary/2024-07-05😪.md"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -189,17 +189,24 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "4196c50afc006c1e",
+  "active": "6f402d875367971d",
   "lastOpenFiles": [
-    "diary/2024-07-04.md",
-    "diary/2024-07-03😭.md",
-    "diary/2024-07-01😊.md",
-    "diary/2024-07-02🥰.md",
+    "note/Autoencoder/Autoencoder.md",
     "note/PCA/PCA - Principal Component Analysis.md",
+    "img/Pasted image 20240701165043.png",
+    "README.md",
+    "img/Pasted image 20240704175154.png",
+    "img/Pasted image 20240705150915.png",
+    "diary/2024-07-05😪.md",
+    "diary/2024-07-04😋.md",
     "note/PCA/pca.pdf",
+    "diary/2024-07-01😊.md",
+    "diary/2024-07-03😭.md",
+    "diary/2024-07-02🥰.md",
+    "img/Pasted image 20240704173444.png",
+    "img/Pasted image 20240704173153.png",
     "未命名.md",
     "note/PCA/template.typ",
-    "note/Autoencoder/Autoencoder.md",
     "Welcome.md",
     "note/Autoencoder",
     "note/PCA/pca.ipynb",
@@ -215,11 +222,6 @@
     "note/PCA/pygeo-tutorial/resource/广东疫情地图.png",
     "note/PCA/pygeo-tutorial/resource/地图v1.png",
     "note/PCA/pygeo-tutorial/resource/地图2.png",
-    "note/PCA/pygeo-tutorial/resource/zhuabao6.png",
-    "note/PCA/pygeo-tutorial/resource/zhuabao5.png",
-    "note/PCA/pygeo-tutorial/resource/zhuabao4.png",
-    "note/PCA/pygeo-tutorial/resource/zhuabao3.png",
-    "note/PCA/pygeo-tutorial/resource/zhuabao2.png",
     "note/PCA/pygeo-tutorial/README.md",
     "note/PCA/pygeo-tutorial/README - en.md",
     "未命名.canvas",
