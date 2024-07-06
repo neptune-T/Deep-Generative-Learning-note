@@ -43,7 +43,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "note/PCA/PCA - Principal Component Analysis.md",
+                "file": "diary/2024-07-06😁.md",
                 "mode": "source",
                 "source": false
               }
@@ -116,7 +116,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "note/PCA/PCA - Principal Component Analysis.md",
+                "file": "diary/2024-07-06😁.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -133,7 +133,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "note/PCA/PCA - Principal Component Analysis.md",
+                "file": "diary/2024-07-06😁.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -156,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "note/PCA/PCA - Principal Component Analysis.md"
+                "file": "diary/2024-07-06😁.md"
               }
             }
           }
@@ -179,14 +179,15 @@
   },
   "active": "7326bf8e021c0b54",
   "lastOpenFiles": [
+    "diary/2024-07-05😪.md",
+    "diary/2024-07-06😁.md",
+    "note/Autoencoder/Autoencoder.md",
+    "note/PCA/PCA - Principal Component Analysis.md",
     "img/autoencoder.png",
     "img/469d5c516656ced402ce7d4e4d36d3b.png",
     "note/PCA/pca.pdf",
-    "note/PCA/PCA - Principal Component Analysis.md",
-    "note/Autoencoder/Autoencoder.md",
     "note/Autoencoder/Autoencoder.pdf",
     "note/papter/Autoencoder/2201.03898v1.pdf",
-    "diary/2024-07-05😪.md",
     "note/Autoencoder/template.typ",
     "note/Autoencoder/Autoencoder.typ",
     "img/Pasted image 20240701165043.png",
@@ -210,7 +211,6 @@
     "note/PCA/pygeo-tutorial/resource/社区发现2.png",
     "note/PCA/pygeo-tutorial/resource/社区发现.png",
     "note/PCA/pygeo-tutorial/resource/广东疫情地图.png",
-    "note/PCA/pygeo-tutorial/resource/地图v1.png",
     "note/PCA/pygeo-tutorial/README.md",
     "note/PCA/pygeo-tutorial/README - en.md",
     "未命名.canvas",
