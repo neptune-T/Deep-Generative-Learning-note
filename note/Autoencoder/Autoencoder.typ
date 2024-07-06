@@ -190,6 +190,10 @@ For the single-layer encoder and single-layer decoder above, we assume the follo
   ]
 )
 The specific form of the regularization term is as follows:
-$
-lambda sum_i theta_i^2 = lambda(sum_(i,j)w_e_(i j)^2+sum_(i)b_e_i^2+sum_(i,j)w_d_(i j) +sum_i b_d_i ^2)
-$
+
+$ lambda sum_i theta_i^2 = lambda (
+  sum_(i,j) w_(e_(i j))^2 + 
+  sum_i b_(e_i)^2 + 
+  sum_(i,j) w_(d_(i j))^2 + 
+  sum_i b_(d_i)^2
+) $
