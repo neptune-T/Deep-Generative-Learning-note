@@ -48,21 +48,9 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "6f402d875367971d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "diary/2024-07-05😪.md",
-                "mode": "source",
-                "source": false
-              }
-            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -128,7 +116,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "diary/2024-07-05😪.md",
+                "file": "note/PCA/PCA - Principal Component Analysis.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -145,7 +133,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "diary/2024-07-05😪.md",
+                "file": "note/PCA/PCA - Principal Component Analysis.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -168,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "diary/2024-07-05😪.md"
+                "file": "note/PCA/PCA - Principal Component Analysis.md"
               }
             }
           }
@@ -189,17 +177,23 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "6f402d875367971d",
+  "active": "7326bf8e021c0b54",
   "lastOpenFiles": [
-    "note/Autoencoder/Autoencoder.md",
+    "img/autoencoder.png",
+    "img/469d5c516656ced402ce7d4e4d36d3b.png",
+    "note/PCA/pca.pdf",
     "note/PCA/PCA - Principal Component Analysis.md",
+    "note/Autoencoder/Autoencoder.md",
+    "note/Autoencoder/Autoencoder.pdf",
+    "note/papter/Autoencoder/2201.03898v1.pdf",
+    "diary/2024-07-05😪.md",
+    "note/Autoencoder/template.typ",
+    "note/Autoencoder/Autoencoder.typ",
     "img/Pasted image 20240701165043.png",
     "README.md",
     "img/Pasted image 20240704175154.png",
     "img/Pasted image 20240705150915.png",
-    "diary/2024-07-05😪.md",
     "diary/2024-07-04😋.md",
-    "note/PCA/pca.pdf",
     "diary/2024-07-01😊.md",
     "diary/2024-07-03😭.md",
     "diary/2024-07-02🥰.md",
@@ -213,15 +207,10 @@
     "note/pca.ipynb",
     "note/PCA - Principal Component Analysis.md",
     "note/PCA/pygeo-tutorial/pca.ipynb",
-    "note/PCA/pygeo-tutorial/轨道客流可视化！shapely初探.ipynb",
-    "note/PCA/pygeo-tutorial/用道路切分地块！shapely的线转面处理！.ipynb",
-    "note/PCA/pygeo-tutorial/抓微博!微博评论关系可视化.ipynb",
-    "note/PCA/pygeo-tutorial/微博评论关系图.html",
     "note/PCA/pygeo-tutorial/resource/社区发现2.png",
     "note/PCA/pygeo-tutorial/resource/社区发现.png",
     "note/PCA/pygeo-tutorial/resource/广东疫情地图.png",
     "note/PCA/pygeo-tutorial/resource/地图v1.png",
-    "note/PCA/pygeo-tutorial/resource/地图2.png",
     "note/PCA/pygeo-tutorial/README.md",
     "note/PCA/pygeo-tutorial/README - en.md",
     "未命名.canvas",
