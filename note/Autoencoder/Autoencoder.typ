@@ -139,7 +139,7 @@ the case that we will look in detail in this article. But before looking at this
 case, let's briefly discuss regularization.
 
 #v(1em)
-#align(center,text(15pt)[*Regularization in autoencoders*])
+#align(center,text(15pt)[*III.Regularization in autoencoders*])
 #v(1em)
 The purpose of regularization is to prevent the model from overfitting on the training data by limiting the size of model parameters, thereby improving the model's generalization ability on new data.Intuitively it means enforcing sparsity in the latent feature
 output. The simplest way of achieving this is to add a $l_1$ or $l_2$ regularization
@@ -197,3 +197,127 @@ $ lambda sum_i theta_i^2 = lambda (
   sum_(i,j) w_(d_(i j))^2 + 
   sum_i b_(d_i)^2
 ) $
+
+#v(1em)
+#align(center,text(15pt)[*IV.Feed Forward Autoencoders*])
+#v(1em)
+The difference between ffa and the original autoencoder:
+#set list(marker:text(purple)[#sym.gt.tri])
+
+- Symmetry: The structures of encoder and decoder are usually symmetrical. This means that the encoder gradually reduces the number of neurons from the input layer to the latent feature layer, while the decoder gradually increases the number of neurons from the latent feature layer to the output layer, making the entire network structure symmetrical at the middle layer (bottleneck layer).
+- Decrease the number of neurons as you move towards the center of the network: In the encoder part, the number of neurons in each layer gradually decreases until it reaches the middle layer (bottleneck layer). This is designed to compress the data so that it can be represented in a low-dimensional space.
+- Bottleneck layer: The middle layer (bottleneck layer) has the least number of neurons. The output of this layer is a low-dimensional representation or feature representation of the input data. The bottleneck layer is designed to force the network to learn the most important features of the data.
+- Bottleneck effect: By reducing the number of neurons in the middle layer, the network is forced to compress information, remove redundant data, and learn the core features of the data. This structure helps improve the generalization ability of the model and reduce overfitting.
+#figure(
+  image("/img/ffa.png", width:70%),
+  caption: [
+     Internal structure of FFA.
+  ],
+) 
+= Activation Function of the Output Layer
+In neural network based autoencoders, the activation function of the output layer plays a particularly important role. The most commonly used functions are ReLU and sigmoid. Let's look at both of these functions and see some tips on when to use which function and when to use which.
+
+#let body-text = 10pt
+#let summary-text = 11pt
+#grid(
+  columns: (5fr, 5fr),
+  gutter: 19pt,
+  column-gutter: .7fr,
+  [
+    #text(size: body-text)[
+      = ReLU
+      The *ReLU* activation function can assume all values in the range $[0,#sym.infinity]$. As a remainder, its formula is
+      $
+      "ReLU"(x) =max (0,x)
+      $
+      This choice is good when the input observations $x_i$ assume a wide range
+      of positive values. If the input $x_i$ can assume negative values, the ReLU
+      is, of course, a terrible choice, and the identity function is a much better choice.
+      $
+      f(x) = cases(0","x<=0,
+      x","x>0)
+      $
+      #figure(image("/img/relu.png",width:90%),
+      caption: [relu image.
+      ],) 
+      #set list(marker:text(blue)[#sym.checkmark.light])
+      - ReLU is non-linear, which means *it can capture complex patterns in the input data.*
+      - *Avoid gradient vanishing*: The derivative of ReLU in the positive interval is a constant 1, and the derivative in the negative interval is 0, *so it can effectively alleviate the gradient vanishing problem when training deep neural networks. *This makes training faster and the model deeper
+      - Sparse activation: ReLU outputs zero for negative values, *which means it produces sparse activations (many neurons have zero outputs)*, which helps reduce computation and improves the generalization of the model
+      
+      *ReLU is often used as the activation function for hidden layers because it can effectively train deep neural networks and capture complex nonlinear relationships.*
+    ]
+  ],
+  [
+    #text(size: body-text)[
+      = sigmoid
+      The *sigmoid* function $#sym.sigma$ can assume all values in the range $[0,1]$. As a remained its formula is:
+      $
+      sigma(x)= 1/(1+e^(-x))
+      $
+      #figure(image("/img/sigmoid.png", width:90%),
+      caption: [sigmoid image.
+      ],) 
+      This activation function can only be used if the input observations xi are all in the range $[0,1]$ or if you have normalized them to be in that range.Consider as an example the MNIST dataset. Each value of the input observation $x_i$ (one image) is the gray values of the pixels that can assume any value from 0 to 255. Normalizing the data by dividing the pixel values by 255 would make each observation (each image) have only pixel values between 0 and 1. In this case, the sigmoid would be a good choice for the output layer's activation function.
+      #set list(marker:text(purple)[#sym.checkmark.light])
+      - Probability output: Sigmoid maps the input value to the (0, 1) interval, which is suitable as a probability output, especially for *binary classification problems*.
+      - Smooth nonlinearity: Sigmoid is a smooth nonlinear function that can map any real number to a finite range.
+      - Application: Sigmoid is often used as the activation function of the output layer, especially in binary classification problems, because it can provide a probability value indicating the possibility that a sample belongs to a certain category.
+    ]
+  ]
+)
+= Loss Function
+The loss function compares the difference between a and b and tries to reduce the value. The previous loss function is:
+$
+EE[Delta(bold(X_i) tilde(bold(X_i)))]
+$
+For FFA, g; and f will be the functions obtained through the dense layers, as described in the previous sections. Remember that the autoencoder is trying to learn an approximation of the identity function; therefore, you need to find the weights in the network that give the minimum difference according to some metric $(∆(·))$ between $x_i$ and $tilde(x_i)$. Two loss functions are widely used for autoencoders: mean squared error (MSE) and binary cross entropy (BCE).
+
+= Mean Square Error
+Since an autoencoder is trying to solve a regression problem, the most common choice as a loss function is the Mean Square Error (MSE):
+$
+L_"MSE"= "MSE" = 1/M sum_(i=1)^M norm(bold(X_i)-tilde(bold(X_i)))^2
+$
+L2 norm:
+$
+norm(bold(X_i)-tilde(bold(X_i))) = sqrt(sum_(j=1)^N (x_(i j)-tilde(x)_(i j)))
+$
+Then square it, expressed as:
+$
+norm(bold(X_i)-tilde(bold(X_i)))^2 = sum_(j=1)^N (x_(i j )-tilde(x)_(i j))
+$
+The entire formula represents the mean square error of all data samples:
+$
+L_"MSE"= "MSE"= 1/M sum_(i=1)^M sum_(j=1)^N (x_(i j)-tilde(x)_(i j))^2
+$
+The symbol $| |$ indicates the norm of a vector,equivalent to the original equation.and M is the number of the observation in the training dataset.
+
+
+$ (diff L_"MSE")/(diff tilde(x)_j) = (diff)/(diff tilde(x)_j) (1/M sum_(i=1)^M (x_i - tilde(x)_i)^2) $
+
+Since MSE is the average of all sample errors, for each specific
+$x$, only the error term corresponding to it is considered:
+$
+(diff L_"MSE")/(diff tilde(x_j))=-2/M (x_j-tilde(x_j))=0
+$
+Solving this equation yields:
+$
+x_j=tilde(x_j)
+$
+To confirm that this point is a minimum, calculate the second derivative:
+$
+(diff^2 L_"MSE")/(diff tilde(x_j)^2) = diff/(diff tilde(x_j)) (-2/M (x_j-tilde(x_j)))=2/M
+$
+Since the second-order derivative is positive, this means that $x_j = tilde(x_j)$,there is a local minimum.
+
+
+= Binary Cross-Entropy
+If the activation function of the output layer of the FFA is a sigmoid function,
+thus limiting neuron outputs to be between 0 and 1, and the input features are
+normalized to be between 0 and 1 we can use as loss function the binary crossentropy, indicated here with LCE. Note that this loss function is typically
+used in classification problems, but it works beautifully for autoencoders.
+The formula for it is:
+$
+L_"CE" = -1/M sum_(i=1)^M sum_(j=1)^n [x_(j,i)log tilde(x)_(j,i)+(1-x_(j,i)log(1-tilde(x)_(j,i)) ]
+$
+

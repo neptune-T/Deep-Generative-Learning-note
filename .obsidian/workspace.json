@@ -43,7 +43,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "diary/2024-07-06😁.md",
+                "file": "diary/2024-07-07🥴.md",
                 "mode": "source",
                 "source": false
               }
@@ -116,7 +116,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "diary/2024-07-06😁.md",
+                "file": "diary/2024-07-07🥴.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -133,7 +133,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "diary/2024-07-06😁.md",
+                "file": "diary/2024-07-07🥴.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -156,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "diary/2024-07-06😁.md"
+                "file": "diary/2024-07-07🥴.md"
               }
             }
           }
@@ -179,27 +179,31 @@
   },
   "active": "7326bf8e021c0b54",
   "lastOpenFiles": [
-    "diary/2024-07-05😪.md",
     "diary/2024-07-06😁.md",
+    "diary/2024-07-07🥴.md",
+    "img/sigmoid.png",
+    "img/27c2873596416dba797bf89aefe6057.png",
+    "img/relu.png",
+    "img/ace17e4b914ff2c41fa3f92cfd300c4.png",
+    "img/ffa.png",
+    "img/e80b1af3ba119178f3fbf56f6a59a3e.png",
     "note/Autoencoder/Autoencoder.md",
+    "note/Autoencoder/Autoencoder.pdf",
+    "diary/2024-07-05😪.md",
     "note/PCA/PCA - Principal Component Analysis.md",
     "img/autoencoder.png",
     "img/469d5c516656ced402ce7d4e4d36d3b.png",
     "note/PCA/pca.pdf",
-    "note/Autoencoder/Autoencoder.pdf",
     "note/papter/Autoencoder/2201.03898v1.pdf",
     "note/Autoencoder/template.typ",
     "note/Autoencoder/Autoencoder.typ",
     "img/Pasted image 20240701165043.png",
     "README.md",
     "img/Pasted image 20240704175154.png",
-    "img/Pasted image 20240705150915.png",
     "diary/2024-07-04😋.md",
     "diary/2024-07-01😊.md",
     "diary/2024-07-03😭.md",
     "diary/2024-07-02🥰.md",
-    "img/Pasted image 20240704173444.png",
-    "img/Pasted image 20240704173153.png",
     "未命名.md",
     "note/PCA/template.typ",
     "Welcome.md",
@@ -208,9 +212,6 @@
     "note/pca.ipynb",
     "note/PCA - Principal Component Analysis.md",
     "note/PCA/pygeo-tutorial/pca.ipynb",
-    "note/PCA/pygeo-tutorial/resource/社区发现2.png",
-    "note/PCA/pygeo-tutorial/resource/社区发现.png",
-    "note/PCA/pygeo-tutorial/resource/广东疫情地图.png",
     "note/PCA/pygeo-tutorial/README.md",
     "note/PCA/pygeo-tutorial/README - en.md",
     "未命名.canvas",
