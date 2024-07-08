@@ -43,7 +43,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "diary/2024-07-07🥴.md",
+                "file": "diary/2024-07-08😴.md",
                 "mode": "source",
                 "source": false
               }
@@ -116,7 +116,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "diary/2024-07-07🥴.md",
+                "file": "diary/2024-07-08😴.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -133,7 +133,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "diary/2024-07-07🥴.md",
+                "file": "diary/2024-07-08😴.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -156,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "diary/2024-07-07🥴.md"
+                "file": "diary/2024-07-08😴.md"
               }
             }
           }
@@ -179,8 +179,9 @@
   },
   "active": "7326bf8e021c0b54",
   "lastOpenFiles": [
-    "diary/2024-07-06😁.md",
     "diary/2024-07-07🥴.md",
+    "diary/2024-07-08😴.md",
+    "diary/2024-07-06😁.md",
     "img/sigmoid.png",
     "img/27c2873596416dba797bf89aefe6057.png",
     "img/relu.png",
