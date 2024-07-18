@@ -55,7 +55,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "diary/2024-07-10--12😇.md",
+                "file": "diary/2024-07-18.md",
                 "mode": "source",
                 "source": false
               }
@@ -128,7 +128,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "diary/2024-07-10--12😇.md",
+                "file": "diary/2024-07-18.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -145,7 +145,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "diary/2024-07-10--12😇.md",
+                "file": "diary/2024-07-18.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -168,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "diary/2024-07-10--12😇.md"
+                "file": "diary/2024-07-18.md"
               }
             }
           }
@@ -191,8 +191,20 @@
   },
   "active": "6de6996055b03ae8",
   "lastOpenFiles": [
-    "diary/未命名.md",
+    "note/VAE/template.typ",
+    "note/VAE/vae.typ",
+    "学习内容/对比学习/~$噪声对比估计.docx",
+    "学习内容/对比学习/~$论文笔记.docx",
+    "note/VAE",
+    "note/Autoencoder/VAE",
+    "note/papter/vae/1606.05908v3.pdf",
+    "note/papter/vae/1606.05908v3.pdf.crdownload",
+    "note/papter/vae/1906.02691v3.pdf",
+    "note/papter/vae/1906.02691v3.pdf.crdownload",
+    "note/papter/vae",
     "diary/2024-07-10--12😇.md",
+    "diary/2024-07-18.md",
+    "diary/未命名.md",
     "diary/2024-07-08😴.md",
     "diary/2024-07-07🥴.md",
     "diary/2024-07-06😁.md",
@@ -203,15 +215,10 @@
     "img/ffa.png",
     "img/e80b1af3ba119178f3fbf56f6a59a3e.png",
     "note/Autoencoder/Autoencoder.md",
-    "note/Autoencoder/Autoencoder.pdf",
     "diary/2024-07-05😪.md",
     "note/PCA/PCA - Principal Component Analysis.md",
     "img/autoencoder.png",
     "img/469d5c516656ced402ce7d4e4d36d3b.png",
-    "note/PCA/pca.pdf",
-    "note/papter/Autoencoder/2201.03898v1.pdf",
-    "note/Autoencoder/template.typ",
-    "note/Autoencoder/Autoencoder.typ",
     "img/Pasted image 20240701165043.png",
     "README.md",
     "img/Pasted image 20240704175154.png",
@@ -219,13 +226,8 @@
     "diary/2024-07-01😊.md",
     "diary/2024-07-03😭.md",
     "diary/2024-07-02🥰.md",
-    "note/PCA/template.typ",
     "Welcome.md",
-    "note/Autoencoder",
-    "note/PCA/pca.ipynb",
-    "note/pca.ipynb",
     "note/PCA - Principal Component Analysis.md",
-    "note/PCA/pygeo-tutorial/pca.ipynb",
     "note/PCA/pygeo-tutorial/README.md",
     "note/PCA/pygeo-tutorial/README - en.md",
     "未命名.canvas",

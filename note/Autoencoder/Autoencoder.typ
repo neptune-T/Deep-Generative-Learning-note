@@ -321,3 +321,24 @@ $
 L_"CE" = -1/M sum_(i=1)^M sum_(j=1)^n [x_(j,i)log tilde(x)_(j,i)+(1-x_(j,i)log(1-tilde(x)_(j,i)) ]
 $
 
+#set list(marker:text(green)[#sym.checkmark.light])
+- Model output predicted probability:The model outputs a probability value $tilde(x)_(j,i)$, which indicates the probability that sample $i$ belongs to category $j$. This value is usually between 0 and 1.
+- True label:The true label $x_(j,i)$ is the known, actual category label. It is only 0 and 1
+
+For each sample $i$ and each class $j$, calculate the cross entropy loss term:
+$
+x_(j,i)log tilde(x)_(j,i) + (1-x_(j,i))log(1-tilde(x)_(j,i))
+$
+When the true label $x_(j,i)=1$, the loss term is $log tilde(x)_(j,i)$
+Same reason,When the true label $x_(j,i)=0$, the loss term is $log (1-tilde(x)_(j,i))$
+
+for example:
+$x_(1,i)=1$ and $tilde(x)_(1,i)=0.8$,The loss term is $log 0.8$,If $x_(1,i)=0$ and $tilde(x)_(1,j)=0.8$ then the loss term is $log(1-0.8)=log 0.2.$
+
+Sum the loss terms for all samples and classes:
+$
+sum_(i=1)^M sum_(j=1)^n [x_(j,i)log tilde(x)_(j,i) + (1-x_(j,i))log(1-tilde(x)_(j,i))]
+$
+Since there is a minus sign in front of the cross entropy loss formula, it means that we want to minimize this value. The minus sign is used to turn the loss into a positive value, because the result of the logarithmic function log is usually negative.
+
+Divide the total loss by the number of samples M
