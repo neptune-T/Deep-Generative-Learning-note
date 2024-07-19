@@ -53,16 +53,26 @@
             "id": "6de6996055b03ae8",
             "type": "leaf",
             "state": {
+              "type": "pdf",
+              "state": {
+                "file": "学习内容/对比学习/论文笔记.pdf"
+              }
+            }
+          },
+          {
+            "id": "62b670eb321f07f0",
+            "type": "leaf",
+            "state": {
               "type": "markdown",
               "state": {
-                "file": "diary/2024-07-18.md",
+                "file": "diary/2024-07-19😙.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -112,7 +122,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 363.5
   },
   "right": {
     "id": "695536c98cf6a8f3",
@@ -128,7 +138,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "diary/2024-07-18.md",
+                "file": "diary/2024-07-19😙.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -145,7 +155,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "diary/2024-07-18.md",
+                "file": "diary/2024-07-19😙.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -168,7 +178,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "diary/2024-07-18.md"
+                "file": "diary/2024-07-19😙.md"
               }
             }
           }
@@ -189,21 +199,26 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "6de6996055b03ae8",
+  "active": "62b670eb321f07f0",
   "lastOpenFiles": [
+    "img/49f9abb9377694cada362f2ba86a303.jpg",
+    "diary/2024-07-19😙.md",
+    "README.md",
+    "diary/2024-07-18😟.md",
+    "note/GAN/需要知道的东西.md",
+    "note/VAE/template.pdf",
+    "img/logo.png",
+    "img/国科大标准Logo横式二（蓝色）.png",
+    "note/VAE/vae.pdf",
+    "学习内容/对比学习/论文笔记.pdf",
+    "note/VAE/未命名/未命名",
+    "note/GAN",
     "note/VAE/template.typ",
     "note/VAE/vae.typ",
     "学习内容/对比学习/~$噪声对比估计.docx",
     "学习内容/对比学习/~$论文笔记.docx",
     "note/VAE",
-    "note/Autoencoder/VAE",
-    "note/papter/vae/1606.05908v3.pdf",
-    "note/papter/vae/1606.05908v3.pdf.crdownload",
-    "note/papter/vae/1906.02691v3.pdf",
-    "note/papter/vae/1906.02691v3.pdf.crdownload",
-    "note/papter/vae",
     "diary/2024-07-10--12😇.md",
-    "diary/2024-07-18.md",
     "diary/未命名.md",
     "diary/2024-07-08😴.md",
     "diary/2024-07-07🥴.md",
@@ -218,10 +233,6 @@
     "diary/2024-07-05😪.md",
     "note/PCA/PCA - Principal Component Analysis.md",
     "img/autoencoder.png",
-    "img/469d5c516656ced402ce7d4e4d36d3b.png",
-    "img/Pasted image 20240701165043.png",
-    "README.md",
-    "img/Pasted image 20240704175154.png",
     "diary/2024-07-04😋.md",
     "diary/2024-07-01😊.md",
     "diary/2024-07-03😭.md",
