@@ -34,8 +34,64 @@ Reversely, the generative model is a scaffolding of sorts for the recognition mo
 possibly class-labels. The recognition model is the approximate inverse
 of the generative model according to Bayes rule.
 
+VAEs marry graphical models and deep learning. The generative
+model is a Bayesian network of the form $p(x|z)p(z)$, or, if there are multiple stochastic latent layers, a hierarchy such as $p(x|z_L)p(z_L|z_L-1)···p(z_1|z_0)$. Similarly, the recognition model is also a conditional Bayesiannetwork of the form $q(z|x)$ or as a hierarchy, such as $q(z_0|z_1)...q(z_L|X)$.But inside each conditional may hide a complex (deep) neural network, $"e.g." space bold(z|x) tilde f(x, epsilon)$, with $f$ a neural network mapping and $epsilon$ a noise
+random variable. Its learning algorithm is a mix of classical (amortized,variational) expectation maximization but through the reparameterization trick ends up backpropagating through the many layers of the
+deep neural networks embedded inside of it.
 
-== Variational Autoencoders
+
+== Overview
+#v(1em)
+The framework of variational autoencoders (VAEs)provides a principled method for jointly learning deep latent-variable models and corresponding inference models using stochastic gradient descent. The framework has a wide array of applications from generative modeling, semi-supervised learning to
+representation learning.
+
+== Probabilistic Models and Variational Inference
+#v(1em)
+
+Let's use $bold(x)$ as the vector representing the set of all observed variables whose joint distribution we would like to model. Note that for notational simplicity and to avoid clutter, we use lower case bold (e.g. x) to denote the underlying set of observed random variables, i.e. flattened and concatenated such that the set is represented as a single vector. 
+
+We assume the observed variable $bold(x)$ is a random sample from an unknown underlying process, whose true (probability) distribution $p^*(bold(x))$ is unknown. We attempt to approximate this underlying process with a chosen model $p_theta(bold(x))$, with parameters $theta$:
+
+$
+bold(x) tilde p_(theta)(bold(x))
+$
+The learning process is usually to find the value of the parameter θ so that the probability distribution function $p_(theta)(bold(x))$ given by the model approximates the true distribution of the data $p^*(bold(x))$:
+$
+p_theta (bold(x)) approx p^*(bold(x))
+$
+we wish $p_(theta)(bold(x))$ to be sufficiently flexible to be able to adapt to the data, such that we have a chance of obtaining a sufficiently accurate model.
+
+=== Conditional Models
+#v(1em)
+Generally speaking, we are trying to predict the output variable $bold(y)$ from the input variable $bold(x)$. So we want to achieve:
+$
+p_(theta)(bold(y)|bold(x)) approx p^*(bold(y)|bold(x))
+$
+A relatively common and simple example of conditional modeling is image classification, where x is an image, and y is the image's class, as labeled by a human, which we wish to predict. In this case, $p_(theta)(bold(y)|bold(x))$ is typically chosen to be a categorical distribution, whose parameters are computed from $bold(x)$.
+
+Conditional models become more difficult to learn when the predicted variables are very high-dimensional, such as images, video or sound. One example is the reverse of the image classification problem:prediction of a distribution over images, conditioned on the class label. Another example with both high-dimensional input, and highdimensional output, is time series prediction, such as text or video prediction.
+
+
+== Parameterizing Conditional Distributions with Neural Networks
+#v(1em)
+neural networks parameterize a categorical distribution $p_(theta)(y|x)$ over a class label $bold(y)$, conditioned on an image $bold(x)$.
+
+The neural network accepts an input image $bold(x)$ and outputs a vector $p$, where each element $p_i$ in this vector represents the probability that the input image belongs to category $i$.
+
+$
+bold(P) = "NeuralNet"(bold(x))
+$
+Category distribution
+
+$
+p_(theta) = "Categorical"(y;bold(P))
+$
+
+== Directed Graphical Models and Neural Networks
+#v(1em)
+
+
+
 
 
 

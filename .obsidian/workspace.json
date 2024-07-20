@@ -63,11 +63,9 @@
             "id": "62b670eb321f07f0",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "pdf",
               "state": {
-                "file": "diary/2024-07-19😙.md",
-                "mode": "source",
-                "source": false
+                "file": "note/VAE/vae.pdf"
               }
             }
           }
@@ -138,7 +136,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "diary/2024-07-19😙.md",
+                "file": "note/VAE/vae.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -155,7 +153,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "diary/2024-07-19😙.md",
+                "file": "note/VAE/vae.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -178,7 +176,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "diary/2024-07-19😙.md"
+                "file": "note/VAE/vae.pdf"
               }
             }
           }
@@ -201,12 +199,12 @@
   },
   "active": "62b670eb321f07f0",
   "lastOpenFiles": [
-    "img/49f9abb9377694cada362f2ba86a303.jpg",
+    "note/VAE/template.pdf",
     "diary/2024-07-19😙.md",
+    "img/49f9abb9377694cada362f2ba86a303.jpg",
     "README.md",
     "diary/2024-07-18😟.md",
     "note/GAN/需要知道的东西.md",
-    "note/VAE/template.pdf",
     "img/logo.png",
     "img/国科大标准Logo横式二（蓝色）.png",
     "note/VAE/vae.pdf",
