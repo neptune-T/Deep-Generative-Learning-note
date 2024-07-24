@@ -63,9 +63,11 @@
             "id": "62b670eb321f07f0",
             "type": "leaf",
             "state": {
-              "type": "pdf",
+              "type": "markdown",
               "state": {
-                "file": "note/VAE/vae.pdf"
+                "file": "note/GAN/需要知道的东西.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -136,7 +138,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "note/VAE/vae.pdf",
+                "file": "note/GAN/需要知道的东西.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -153,7 +155,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "note/VAE/vae.pdf",
+                "file": "note/GAN/需要知道的东西.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -176,7 +178,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "note/VAE/vae.pdf"
+                "file": "note/GAN/需要知道的东西.md"
               }
             }
           }
@@ -199,6 +201,12 @@
   },
   "active": "62b670eb321f07f0",
   "lastOpenFiles": [
+    "img/bayesian Directed Graph Model.png",
+    "img/351ea86c7c28d3ceb8bae4917ff08ea.png",
+    "Pasted image 20240722123006.png",
+    "note/Probability plot/ProbabilityPlot.pdf",
+    "note/Probability plot/template.pdf",
+    "note/VAE/vae.pdf",
     "note/VAE/template.pdf",
     "diary/2024-07-19😙.md",
     "img/49f9abb9377694cada362f2ba86a303.jpg",
@@ -207,15 +215,12 @@
     "note/GAN/需要知道的东西.md",
     "img/logo.png",
     "img/国科大标准Logo横式二（蓝色）.png",
-    "note/VAE/vae.pdf",
     "学习内容/对比学习/论文笔记.pdf",
     "note/VAE/未命名/未命名",
     "note/GAN",
     "note/VAE/template.typ",
     "note/VAE/vae.typ",
     "学习内容/对比学习/~$噪声对比估计.docx",
-    "学习内容/对比学习/~$论文笔记.docx",
-    "note/VAE",
     "diary/2024-07-10--12😇.md",
     "diary/未命名.md",
     "diary/2024-07-08😴.md",
@@ -226,11 +231,9 @@
     "img/relu.png",
     "img/ace17e4b914ff2c41fa3f92cfd300c4.png",
     "img/ffa.png",
-    "img/e80b1af3ba119178f3fbf56f6a59a3e.png",
     "note/Autoencoder/Autoencoder.md",
     "diary/2024-07-05😪.md",
     "note/PCA/PCA - Principal Component Analysis.md",
-    "img/autoencoder.png",
     "diary/2024-07-04😋.md",
     "diary/2024-07-01😊.md",
     "diary/2024-07-03😭.md",
