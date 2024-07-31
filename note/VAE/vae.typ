@@ -1,213 +1,86 @@
-// vae.typ
+#import "@preview/grape-suite:1.0.0": seminar-paper, german-dates
 
-#import "template.typ": project, chapter
+#set text(lang: "de")
 
-#show: project.with(
-  title: "An Introduction to\nVariational Autoencoders",
-  author: "ZTS",
-  email: "plote5024@gmail.com",
-  logo: ""
+#show: seminar-paper.project.with(
+    title: "An Introduction to Variational Autoencoders",
+    subtitle: "Notes to get started",
+
+    university: [University of Chinese Academy of Sciences],
+
+    semester: german-dates.semester(datetime.today()),
+
+    author: "ZTS",
+    email: "plote5024@mail.com",
+    address: [
+        Beijing
+    ]
 )
 
-#chapter("Introduction")
+= Introduction
 
 == Motivation
-#v(1em)
-One major division in machine learning is generative versus discriminative modeling. Generative Models: Generative models aim to learn the joint distribution of all variables. Generative models simulate the process of generating data in the real world. For example, meteorologists use complex partial differential equations to model weather, and astronomers use equations of motion to model the formation of galaxies. Scientific modeling is often generative modeling, which reveals the generation process by hypothesising and testing theories. Generative models focus on the generation process of data, and Bayesian methods focus on updating beliefs about parameters given data.
-Discriminative Models: Discriminative models aim to learn predictors from observed data, directly learning the mapping relationship from input to output. Discriminative models make classification or regression predictions directly based on input features.
+#v(.5em)
+机器学习的一个主要分支是生成模型和判别模型。在判别建模中，目标是学习给定观察值的预测器，而在生成建模中，目标是解决学习所有变量*All variables*的联合分布。
 
-Details that we don't know or care about, the nuisance variables, are called noise.
+生成模型模拟数据在现实世界中的生成方式。在几乎每一门科学中，“建模”都被理解为通过假设理论和通过观察测试这些理论来揭示这个生成过程。例如，当气象学家为天气建模时，他们使用高度复杂的偏微分方程来表达天气的潜在物理特性。生物学家、化学家、经济学家等等也是如此。科学中的建模实际上几乎全是生成模型。
 
-To turn the generative model into a discriminator, we need to use Bayes' rule. This is because the generative model can provide the joint distribution of categories, and Bayes' rule can convert this information into the conditional probability required in the classification task. The generative model (joint distribution) can be converted to the discriminative model (conditional distribution) through Bayes.
+试图理解数据生成过程的另一个原因是，它自然地表达了世界的因果关系。因果关系的优点，就是它们比单纯的相关性更能概括新情况。
 
-Therefore, if the model is wrong (and it is almost always wrong to some extent!), if one is only interested in learning to discriminate, and if one is in an environment with sufficiently large amounts of data, then a purely discriminative model will usually lead to fewer errors in the discriminative task. However, depending on the amount of surrounding data, it may pay off to study the data generation process as a way to guide the training of a discriminator (e.g., a classifier).
+为了将生成模型转化为Discriminator，我们需要使用贝叶斯规则。即我们可以将生成模型的输出转换为分类任务中需要的条件概率，从而实现判别功能。
 
-Generative modeling can be useful more generally. One can think of it as an auxiliary task.This quest for disentangled,semantically meaningful, statistically independent and causal factors of variation in data is generally known as unsupervised representation learning, and the variational autoencoder (VAE) has been extensively employed for that purpose
+在判别方法中，我们直接学习一个与未来预测方向一致的映射。这与生成模型的方向相反。例如，可以认为一张图像在现实世界中是通过先识别物体，然后生成三维物体，再将其投影到像素网格上来生成的。
 
-*The VAE can be viewed as two coupled, but independently parameterized models: the encoder or recognition model, and the decoder or
-generative model.* 
+而判别模型则直接将这些像素值作为输入，并将其映射到标签上。虽然生成模型能够有效地从数据中学习，但它们往往比纯粹的判别模型对数据做出更强的假设，这通常会在模型出错时导致更高的渐近偏差（*Asymptotic bias*）。
 
-These two models support each other. The recognition model delivers to the generative model an approximation to its
-posterior over latent random variables, which it needs to update its
-parameters inside an iteration of “expectation maximization” learning.
-Reversely, the generative model is a scaffolding of sorts for the recognition model to learn meaningful representations of the data, including
-possibly class-labels. The recognition model is the approximate inverse
-of the generative model according to Bayes rule.
+因此，如果模型出错（事实上几乎总是有一定程度的误差），如果我们只关注于学习如何区分，并且我们有足够多的数据，那么纯粹的判别模型在判别任务中通常会导致更少的错误。然而，取决于数据量的多少，研究数据生成过程可能有助于指导判别器（如分类器）的训练。例如，在半监督学习的情况下，我们可能只有少量的标记样本，但有更多的未标记样本。在这种情况下，可以利用数据的生成模型来改进分类。
 
-VAEs marry graphical models and deep learning. The generative
-model is a Bayesian network of the form $p(x|z)p(z)$, or, if there are multiple stochastic latent layers, a hierarchy such as $p(x|z_L)p(z_L|z_L-1)···p(z_1|z_0)$. Similarly, the recognition model is also a conditional Bayesiannetwork of the form $q(z|x)$ or as a hierarchy, such as $q(z_0|z_1)...q(z_L|X)$.But inside each conditional may hide a complex (deep) neural network, $"e.g." space bold(z|x) tilde f(x, epsilon)$, with $f$ a neural network mapping and $epsilon$ a noise
-random variable. Its learning algorithm is a mix of classical (amortized,variational) expectation maximization but through the reparameterization trick ends up backpropagating through the many layers of the
-deep neural networks embedded inside of it.
+这种方法可以帮助我们构建有用的世界抽象，这些抽象可以用于多个后续的预测任务。这种追求数据中解缠、语义上有意义、统计上独立和因果关系的变化因素的过程，通常被称为无监督表示学习，而变分自编码器（VAE）已经广泛应用于此目的。
 
+或者，可以将其视为一种隐式正则化形式：通过强制表示对数据生成过程有意义，我们将从输入到表示的映射过程约束在某种特定的模式中。通过预测世界这一辅助任务，我们可以在抽象层面上更好地理解世界，从而更好地进行后续的预测。
 
-== Overview
-#v(1em)
-The framework of variational autoencoders (VAEs)provides a principled method for jointly learning deep latent-variable models and corresponding inference models using stochastic gradient descent. The framework has a wide array of applications from generative modeling, semi-supervised learning to
-representation learning.
+变分自编码器（VAE）可以看作是两个耦合但独立参数化的模型：编码器或识别模型*(Encoder or Recognition Model)*，以及解码器或生成模型*(Decoder or Generative Model)*。这两个模型相互支持。识别模型向生成模型提供其后验分布的近似值，后者需要这些近似值在“期望最大化”学习的迭代过程中更新其参数。反过来，生成模型为识别模型提供了一个框架，使其能够学习数据的有意义表示，包括可能的类别标签。根据贝叶斯规则，识别模型是生成模型的近似逆。
+
+与普通的变分推断（VI）相比，VAE框架的一个优势在于识别模型（也称为推断模型）现在是输入变量的一个（随机）函数。这与VI不同，后者对每个数据实例都有一个独立的变分分布，这对于大数据集来说效率低下。识别模型使用一组参数来建模输入与潜变量之间的关系，因此被称为“摊销推断”。这种识别模型可以是任意复杂的，但由于其构造方式，只需一次从输入到潜变量的前馈传递即可完成，因此仍然相对快速。然而，我们付出的代价是，这种采样会在学习所需的梯度中引入采样噪声。
+
+或许VAE框架最大的贡献是认识到我们可以使用现在被称为“重参数化技巧”的简单方法来重新组织我们的梯度计算，从而减少梯度中的方差。
+
+== Aim
+#v(.5em)
+*provides a principled method for jointly learning _deep latent-variable models_ and corresponding inference models using _stochastic gradient descent_.*
+
+该框架在生成建模、半监督学习和表示学习等方面有广泛的应用。
 
 == Probabilistic Models and Variational Inference
-#v(1em)
+#v(.5em)
+由于概率模型包含未知数且数据很少能完整地描述这些未知参数，我们通常需要对模型的某些方面假设一定程度的不确定性。这种不确定性的程度和性质通过（条件）概率分布来描述。在某种意义上，最完整的概率模型形式通过这些变量的联合概率分布来指定模型中所有变量之间的相关性和高阶依赖关系。
 
-Let's use $bold(x)$ as the vector representing the set of all observed variables whose joint distribution we would like to model. Note that for notational simplicity and to avoid clutter, we use lower case bold (e.g. x) to denote the underlying set of observed random variables, i.e. flattened and concatenated such that the set is represented as a single vector. 
+我们用 $bold(x)$ 表示所有观测变量的向量，其联合分布是我们希望建模的。（使用小写粗体来表示底层的观测随机变量集，即将其展平和拼接，使该集合表示为一个单一的向量。）
 
-We assume the observed variable $bold(x)$ is a random sample from an unknown underlying process, whose true (probability) distribution $p^*(bold(x))$ is unknown. We attempt to approximate this underlying process with a chosen model $p_theta(bold(x))$, with parameters $theta$:
-
+假设观测变量 $bold(x)$ 是来自未知底层过程的随机样本，其真实的概率分布 $p^*(bold(x)) $ 是未知的。我们尝试用一个选定的模型 $p_theta bold(x)$ 来近似这个底层过程，其中参数为$theta$ :
 $
-bold(x) tilde p_(theta)(bold(x))
+bold(x) tilde p_theta (bold(x))
 $
-The learning process is usually to find the value of the parameter θ so that the probability distribution function $p_(theta)(bold(x))$ given by the model approximates the true distribution of the data $p^*(bold(x))$:
+学习最常见的是一个搜索参数 $theta$ 的过程，使得由模型给出的概率分布函数 $p_theta (bold(x)) $ 近似于数据的真实分布 $p^*(bold(x)) $，即对于任何观测到的 $bold(x)$，两者尽可能接近:
 $
-p_theta (bold(x)) approx p^*(bold(x))
+p_theta (bold(x)) approx p^* (bold(x))
 $
-we wish $p_(theta)(bold(x))$ to be sufficiently flexible to be able to adapt to the data, such that we have a chance of obtaining a sufficiently accurate model.
 
 === Conditional Models
-#v(1em)
-Generally speaking, we are trying to predict the output variable $bold(y)$ from the input variable $bold(x)$. So we want to achieve:
-$
-p_(theta)(bold(y)|bold(x)) approx p^*(bold(y)|bold(x))
-$
-A relatively common and simple example of conditional modeling is image classification, where x is an image, and y is the image's class, as labeled by a human, which we wish to predict. In this case, $p_(theta)(bold(y)|bold(x))$ is typically chosen to be a categorical distribution, whose parameters are computed from $bold(x)$.
-
-Conditional models become more difficult to learn when the predicted variables are very high-dimensional, such as images, video or sound. One example is the reverse of the image classification problem:prediction of a distribution over images, conditioned on the class label. Another example with both high-dimensional input, and highdimensional output, is time series prediction, such as text or video prediction.
-
-
-== Parameterizing Conditional Distributions with Neural Networks
-#v(1em)
-neural networks parameterize a categorical distribution $p_(theta)(y|x)$ over a class label $bold(y)$, conditioned on an image $bold(x)$.
-
-The neural network accepts an input image $bold(x)$ and outputs a vector $p$, where each element $p_i$ in this vector represents the probability that the input image belongs to category $i$.
+在分类或者回归问题上面，我们不关心无条件模型 $p_theta (bold(x))$，更倾向于条件模型 $p_theta (y|x)$，它近似于底层的条件分布 $p^*(y|x)$：即在观测变量$bold(x)$的值上，对变量$y$的值进行分布。在这种情况下，bold(x)通常被称为模型的输入。与无条件情况类似，我们选择并优化一个模型 $p_theta (y|x)$，使其接近未知的底层分布，即对于任何 $bold(x) $ 和 $y$:
 
 $
-bold(P) = "NeuralNet"(bold(x))
-$
-Category distribution
-
-$
-p_(theta) = "Categorical"(y;bold(P))
+p_(theta)(y|bold(x)) approx p^*(y|bold(x))
 $
 
 == Directed Graphical Models and Neural Networks
-#v(1em)
-PGMs(Bayesian networks). Directed graphical models are a type of probabilistic models where all the variables are topologically organized into a directed acyclic graph. The joint distribution over the variables of such models factorizes as a product of prior and conditional distributions:
-$
-p_(theta) (bold(X_1),...,bold(X)_M) = product_(j=1)^M p_(theta)(bold(X)_j | P_a (bold(X)_j))
-$
-If all variables in the directed graphical model are observed in the data,
-then we can compute and differentiate the log-probability of the data
-under the model, leading to relatively straightforward optimization.
-
-
-== Learning in Fully Observed Models with Neural Nets 
-#v(.8em)
-Using calculus' chain rule and automatic differentiation tools, we can efficiently compute gradients of this objective, i.e. the first derivatives of the objective $w.r.t.$ its parameters $theta$. 
-
-$ 
-1/N_D log p_theta(D) approx 1/N_M log p_theta(M) = 1/N_M sum_{x in M} log p_theta(x) 
-$
-// 无偏估计量
-$
- 1/N_D nabla_theta log p_theta(D) approx 1/N_M nabla_theta log p_theta(M) = 1/N_M sum_{x in M} nabla_theta log p_theta(x) 
-$
-
-== Learning and Inference in Deep Latent Variable Models
-#v(.8em)
-We can extend fully-observed directed models, discussed in the previous section, into directed models with latent variables. Latent variables are
-variables that are part of the model, but which we don't observe, and are therefore not part of the dataset. We typically use z to denote such
-latent variables. 
-
-In case of unconditional modeling of observed variable $bold(x)$, the directed graphical model would then represent a joint distribution
-$p_θ(x, z)$ over both the observed variables $x$ and the latent variables $z$.The marginal distribution over the observed variables $p_θ(x)$, is given by:
-
-$
-p_(theta) = integral p_(theta) (x,z) dif z
-$
-
-== Deep Latent Variable Models
-#v(.8em)
-We use the term deep latent variable model (DLVM) to denote a latent
-variable model $p_θ(x, z)$ whose distributions are parameterized by neural networks. Such a model can be conditioned on some context, like
-$p_θ(x, z|y)$. One important advantage of DLVMs, is that even when each
-factor (prior or conditional distribution) in the directed model is relatively simple (such as conditional Gaussian)
-
-#set list(marker:text(orange)[#sym.notes.up])
-
-composition:
-
-- Latent Variables:These are the unobservable implicit variables in the model.
-- Observed Variables:Observed data are generated by latent variables through a generative process.
-- Generative Model:The generative model defines how to generate observations from latent variables. A deep neural network is usually used to represent the generative process.
-$
-p(x|z) = f(z;theta)
-$
-
-- Inference Model:Inference models are used to infer latent variables from observed data, usually through a deep neural network.
-
-$
-q(z | x) = g(x;phi)
-$
-
-
-#chapter("Variational Autoencoders")
-
-= Evidence Lower Bound (ELBO)
-$ 
-log p_theta(x) &= EE_(q_phi(z|x)) [log p_theta(x)]\
-            &= EE_(q_phi(z|x)) [log [p_theta(x,z) / p_theta(z|x)]]\
-            &= EE_(q_phi(z|x)) [log [p_theta(x,z) q_phi(z|x) / (q_phi(z|x) p_theta(z|x))]]\
-            &= underbrace(
-              EE_(q_phi(z|x)) [log [p_theta(x,z) / q_phi(z|x)]],
-               = L_theta phi(x)\
-               "ELBO"
-             )
-            underbrace(
-               + EE_(q_phi(z|x)) [log [q_phi(z|x) / p_theta(z|x)]],
-               = D_"KL" (q_phi(z|x) || p_theta(z|x))
-             )
-$
-
-= EM
-Expectation Step:
-$
-q(Z|theta^(t)) = p(Z | X,theta^(t))
-$
-
-Maximization Step:
-$
-theta^(t+1) = arg max_(theta) EE_q(Z|theta^((t)))[log p (X,Z|theta)]
-$
-The EM algorithm ensures that after each iteration, the likelihood function increases or remains unchanged until it converges to a local optimal solution or a stable point.
-
-How to understand:
-$
-p(X|theta) = p(X,Z|theta)/p(Z|X,theta)
-$
-
-$
-log P(X|theta) &= log P(X,Z | theta) -log P(Z|X,theta)\
-           &= log P(X,Z |theta)/q(Z) - log P(Z|X,theta)/q(Z)\ 
-
-$
-
-$
-"left" &= integral_z q(Z) log P(X|theta) dif z
-&= log P(X| theta) integral_z q(z) dif z
-&= log P(X|theta)
-$
-#v(.9em)      
-$
-"right" &= integral_Z q(Z) log p(X,Z|theta)/q(Z) dif Z  - integral_z q(Z) log p(Z|X,theta)/q(Z) dif Z
-$
-#v(3em)
-$log P(X|theta) = "ELBO" + "KL"(q||p)$.
-#v(1em)
-So at this point we can get the meaning of : $theta$
-$
-theta &= arg max_theta "ELBO"\
-  &= arg max _theta integral  q(z) log p(x,z|theta)/q(z) dif z
-
-$
 #v(.9em)
+我们使用有向概率图模型(Directed probability graph model)，或贝叶斯网络。有向图模型是一种概率模型，其中所有的变量被拓扑组织成一个有向无环图。这些模型的变量的联合分布被分解为先验分布和条件分布的乘积:
+$
+p_(theta) (bold(X)_1,...,bold(X)_M) = product_(j=1)^M p_(theta)(bold(X)_j | P_a (bold(X)_j))
+$
+$P_a (bold(x)_j)$ 是有向图中节点 $j$ 的父向量的集合。
 
-     
-      
+== Maximum Likelihood and Minibatch SGD
+#v(.9em)
+概率模型最常见的标准是最大对数似然(ML). *Maximization of the log-likelihood criterion is equivalent to minimization of a Kullback Leibler divergence between the data and model distributions.*
