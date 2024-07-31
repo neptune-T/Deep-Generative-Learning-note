@@ -16,40 +16,6 @@
             }
           },
           {
-            "id": "9a2db269abf542d5",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.6.5"
-              }
-            }
-          },
-          {
-            "id": "227068b83cf2ba83",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "note/Autoencoder/Autoencoder.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "7326bf8e021c0b54",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "diary/2024-07-08😴.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "6de6996055b03ae8",
             "type": "leaf",
             "state": {
@@ -65,14 +31,14 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "note/GAN/需要知道的东西.md",
+                "file": "diary/2024-07-30😭.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -138,7 +104,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "note/GAN/需要知道的东西.md",
+                "file": "diary/2024-07-30😭.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -155,7 +121,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "note/GAN/需要知道的东西.md",
+                "file": "diary/2024-07-30😭.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -178,7 +144,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "note/GAN/需要知道的东西.md"
+                "file": "diary/2024-07-30😭.md"
               }
             }
           }
@@ -187,7 +153,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -201,37 +167,38 @@
   },
   "active": "62b670eb321f07f0",
   "lastOpenFiles": [
+    "学习内容/论文/张静雯.pdf",
+    "probability_logic_of_science/ProbabilityLogic.typ",
+    "probability_logic_of_science/概率论沉思录英文.pdf",
+    "probability_logic_of_science",
+    "src/autoencoder/probability_logic_of_science",
+    "src/autoencoder/autoencoder.py",
+    "autoencoder.py",
+    "学习内容/对比学习/论文笔记.pdf",
+    "diary/2024-07-30😭.md",
+    "src/net/model/test.py",
+    "src/net/model/cnn.py",
+    "src/net/model",
+    "diary/2024-07-19😙.md",
+    "note/Autoencoder/Autoencoder.md",
+    "diary/2024-07-08😴.md",
+    "note/GAN/需要知道的东西.md",
     "img/bayesian Directed Graph Model.png",
     "img/351ea86c7c28d3ceb8bae4917ff08ea.png",
     "Pasted image 20240722123006.png",
-    "note/Probability plot/ProbabilityPlot.pdf",
-    "note/Probability plot/template.pdf",
-    "note/VAE/vae.pdf",
-    "note/VAE/template.pdf",
-    "diary/2024-07-19😙.md",
     "img/49f9abb9377694cada362f2ba86a303.jpg",
     "README.md",
     "diary/2024-07-18😟.md",
-    "note/GAN/需要知道的东西.md",
     "img/logo.png",
     "img/国科大标准Logo横式二（蓝色）.png",
-    "学习内容/对比学习/论文笔记.pdf",
-    "note/VAE/未命名/未命名",
-    "note/GAN",
-    "note/VAE/template.typ",
-    "note/VAE/vae.typ",
-    "学习内容/对比学习/~$噪声对比估计.docx",
     "diary/2024-07-10--12😇.md",
     "diary/未命名.md",
-    "diary/2024-07-08😴.md",
     "diary/2024-07-07🥴.md",
     "diary/2024-07-06😁.md",
     "img/sigmoid.png",
     "img/27c2873596416dba797bf89aefe6057.png",
     "img/relu.png",
     "img/ace17e4b914ff2c41fa3f92cfd300c4.png",
-    "img/ffa.png",
-    "note/Autoencoder/Autoencoder.md",
     "diary/2024-07-05😪.md",
     "note/PCA/PCA - Principal Component Analysis.md",
     "diary/2024-07-04😋.md",

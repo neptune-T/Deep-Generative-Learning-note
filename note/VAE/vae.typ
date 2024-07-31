@@ -166,5 +166,48 @@ log p_theta(x) &= EE_(q_phi(z|x)) [log p_theta(x)]\
              )
 $
 
+= EM
+Expectation Step:
+$
+q(Z|theta^(t)) = p(Z | X,theta^(t))
+$
 
+Maximization Step:
+$
+theta^(t+1) = arg max_(theta) EE_q(Z|theta^((t)))[log p (X,Z|theta)]
+$
+The EM algorithm ensures that after each iteration, the likelihood function increases or remains unchanged until it converges to a local optimal solution or a stable point.
 
+How to understand:
+$
+p(X|theta) = p(X,Z|theta)/p(Z|X,theta)
+$
+
+$
+log P(X|theta) &= log P(X,Z | theta) -log P(Z|X,theta)\
+           &= log P(X,Z |theta)/q(Z) - log P(Z|X,theta)/q(Z)\ 
+
+$
+
+$
+"left" &= integral_z q(Z) log P(X|theta) dif z
+&= log P(X| theta) integral_z q(z) dif z
+&= log P(X|theta)
+$
+#v(.9em)      
+$
+"right" &= integral_Z q(Z) log p(X,Z|theta)/q(Z) dif Z  - integral_z q(Z) log p(Z|X,theta)/q(Z) dif Z
+$
+#v(3em)
+$log P(X|theta) = "ELBO" + "KL"(q||p)$.
+#v(1em)
+So at this point we can get the meaning of : $theta$
+$
+theta &= arg max_theta "ELBO"\
+  &= arg max _theta integral  q(z) log p(x,z|theta)/q(z) dif z
+
+$
+#v(.9em)
+
+     
+      

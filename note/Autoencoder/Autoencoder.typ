@@ -318,7 +318,7 @@ normalized to be between 0 and 1 we can use as loss function the binary crossent
 used in classification problems, but it works beautifully for autoencoders.
 The formula for it is:
 $
-L_"CE" = -1/M sum_(i=1)^M sum_(j=1)^n [x_(j,i)log tilde(x)_(j,i)+(1-x_(j,i)log(1-tilde(x)_(j,i)) ]
+L_"CE" = -1/M sum_(i=1)^M sum_(j=1)^n [x_(j,i)log tilde(x)_(j,i)+(1-x_(j,i))log(1-tilde(x)_(j,i)) ]
 $
 
 #set list(marker:text(green)[#sym.checkmark.light])
