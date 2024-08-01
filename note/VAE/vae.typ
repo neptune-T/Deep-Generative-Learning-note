@@ -81,6 +81,175 @@ p_(theta) (bold(X)_1,...,bold(X)_M) = product_(j=1)^M p_(theta)(bold(X)_j | P_a 
 $
 $P_a (bold(x)_j)$ 是有向图中节点 $j$ 的父向量的集合。
 
+== Dataset
+#v(.9em)
+我们收集$N≥1$个数据点组成的数据集 $cal(D)$:
+$
+cal(D) = {bold(x)^((1)),bold(x)^((2)),...,bold(x)^((N))} equiv {bold(x^((i)))}_(i=1)^N equiv bold(x)^((1:N))
+$
+
+数据集被认为由同一（不变）系统的独立测量值组成。在这种情况下，观测数据 $cal(D) = { bold(x)^((i))}_(i=1)^N$被称为独立同分布(i.i.d.)。在独立同分布的假设下，给定参数的情况下，数据点的概率因子化为各个数据点概率的乘积。因此，模型分配给数据的对数概率表示为：
+$ 
+log p_theta(cal(D)) = sum_(x in cal(D)) log p_theta(x) $
 == Maximum Likelihood and Minibatch SGD
 #v(.9em)
 概率模型最常见的标准是最大对数似然(ML). *Maximization of the log-likelihood criterion is equivalent to minimization of a Kullback Leibler divergence between the data and model distributions.*
+
+优化方式比较好用的方法是*_stochastic gradient descent_*
+
+考虑一个数据集$cal(D)$包含N个数据点,我们无法每次都使用整个数据集来计算梯度，因为这样计算代价太高。因此，我们随机抽取一个小批量数据 $cal(M)$（例如，大小为$N_cal(M)$），并计算这个小批量数据上的梯度。我们希望这个小批量数据上的梯度能够在期望值上等于整个数据集上的梯度。
+
+在随机梯度下降中，这意味着（公式推导放在1.6.1，不占用篇幅继续写结论）：
+
+$
+EE[nabla_theta log p_theta (cal(M))] = nabla_theta log p_theta (cal(D))
+$
+$cal(M)$是从$cal(D)$中随机抽出来的小批量数据，$log p_theta (cal(M))$是这个小批量的对数似然，$log p_theta (cal(D))$是整个数据集的对数似然。
+
+对数似然无偏估计：
+
+对于整个数据集 $cal(D)$，其对数似然是：
+$
+log p_theta (cal(D)) = sum_(x in cal(D)) log p_theta (x)
+$
+对于小批量数据 $cal(M)$，其对数似然是：
+$
+log p_theta (cal(M)) = sum_(x in cal(M)) log p_theta (x)
+$
+在期望上，小批量数据的对数似然可以近似整个数据集的对数似然：
+$
+1/N_cal(D) log p_theta (cal(D)) tilde.eq 1/N_cal(M) log p_theta (cal(M)) 
+$
+
+通过这样的迷你批次*_minibatches_*，我们可以形成最大似然准则的无偏估计：
+$
+1/N_cal(D) log p_theta (cal(D)) tilde.eq 1/N_cal(M) log p_theta (cal(M)) = 1/N_cal(M) sum_(x in cal(M)) log p_theta (x)
+$
+
+$
+frac(1, N_cal(D)) nabla_theta log p_theta (cal(D)) tilde.eq frac(1, N_cal(M)) nabla_theta log p_theta (cal(M)) = frac(1, N_cal(M)) sum _ (x in cal(M)) nabla_theta log p_theta (x)
+$
+
+=== 小批量数据的梯度期望值等于整个数据集的梯度
+#v(.9em)
+假设数据集$cal(D)$有$N$个数据集，小批量$cal(M)$之中有$N_cal(M)$个数据集，并且小批量数据是从数据集中随机抽取的。
+
+整个数据集的对数似然梯度:
+$
+nabla_theta log p_theta (cal(D)) = nabla_theta sum_(i=1) ^N log p_theta (x_i) = sum_(i=1) ^N nabla_theta log p_theta (x_i)
+$
+
+小批量数据的对数似然梯度：
+$
+nabla_theta log p_theta (cal(M)) = N/N_cal(M) sum_(j=1)^N_cal(M) nabla_theta log p_theta(x_j)
+$
+这里乘以$N/N_cal(M)$证明写在1.6.1.1了，这里就不占篇幅继续向下推导了。
+
+假设我们抽取了$N_cal(M)$个样本，样本是独立同分布的，我们可以用数学期望来表示这种抽样过程：
+
+$
+EE[nabla_theta log p_theta (cal(M))] = EE [N/N_cal(M) sum _(j=1)^N_(cal(M)) nabla_theta log p_theta (x_j)]
+$
+
+由于 $cal(M)$ 中的样本是独立同分布的，所以:
+
+$
+EE[sum_(j=1)^(N_cal(M)) nabla_theta log p_theta (x_j)] = N_cal(M) EE [nabla_theta log p_theta (x)]
+$
+
+其中$x$是从$cal(D)$中随机抽取的一个样本。因此:
+
+$
+EE[nabla_theta log p_theta (cal(M))] 
+    &= EE [N/N_cal(M) sum _(j=1)^N_(cal(M)) nabla_theta log p_theta (x_j)]\
+    &= N/N_cal(M) N_cal(M) EE[nabla_theta log p_theta (x)]\
+    &= N EE [nabla_theta log p_theta (x)]
+$
+由于数据点 $x$ 是从整个数据集中抽取的，所以 $EE[nabla_theta log p_theta (x)]$ 实际上就是总体梯度的平均值：
+$
+N EE [nabla_theta log p_theta (x)] = sum_(i=1)^N nabla_theta log p_theta (x_i) = nabla_theta log p_theta (cal(D))
+$
+
+
+==== Coefficient proof
+#v(.9em)
+是为了补偿小批量数据与整个数据集的大小差异，使得梯度估计在期望值上保持一致。这里乘系数的原因是：
+
++ 比例调整：由于小批量数据 $cal(M)$ 只是整个数据集 $cal(D)$ 的一个子集，其样本数量 $N_cal(M)$ 小于 $N$。乘以比例系数可以调整小批量数据的梯度估计，使其在期望上与整个数据集的梯度一致。
++ 无偏估计：这种调整确保了小批量数据梯度估计的期望值等于整体数据集的梯度，从而在期望上保持无偏。
+
+定义整个数据集的对数似然梯度：
+$
+nabla_theta log p_theta (cal(D)) = nabla_theta sum_(i=1) ^N log p_theta (x_i) = sum_(i=1) ^N nabla_theta log p_theta (x_i)
+$
+定义小批量数据的对数似然梯度：
+$
+nabla_theta log p_theta (cal(M)) =  sum_(j=1)^N_cal(M) nabla_theta log p_theta (x_j)
+$
+
+现在假设我们从数据集中随机抽取小批量数据 $cal(M)$ ,由于 $cal(M)$ 中的数据点是独立同分布的，我们有:
+
+$
+EE [nabla_theta log p_theta (cal(M))] = EE[sum_(j=1)^N_cal(M) nabla_theta log p_theta (x_j)] = N_cal(M)EE [nabla_theta log p_theta (x)]
+$
+为了使小批量数据的梯度在期望上等于整个数据集的梯度，我们需要将小批量数据的梯度进行比例调整。我们定义调整后的梯度估计为：
+
+$
+tilde(nabla)_theta log p_theta (cal(M)) = N/N_M sum_(j=1)^(N_M) nabla_theta log p_theta (x_j)
+$
+
+我们现在计算这个调整后的梯度的期望值：
+$
+bb(E)[tilde(nabla)_theta log p_theta(cal(M))] 
+&= bb(E)[N/N_M sum_(j=1)^(N_M) nabla_theta log p_theta (x_j)]\
+&= N/N_M bb(E)[sum_(j=1)^(N_M) nabla_theta log p_theta (x_j)] \
+&= N/N_M N_M bb(E)[nabla_theta log p_theta (x)] \
+&= N bb(E)[nabla_theta log p_theta (x)]
+$
+由于$x$是从整个数据集中随机抽取的样本，我们有:
+$
+N EE [nabla_theta log p_theta (x)] = sum_(i=1)^N nabla_theta log p_theta (x_i) = nabla_theta log p_theta (cal(D))
+$
+
+== Learning and Inference in Deep Latent Variable Models
+#v(.9em)
+
+=== Latent Variables
+#v(.9em)
+我们可以将前一节讨论的完全观测有向模型扩展到包含潜变量的有向模型。潜变量是模型的一部分，但我们并不观测到它们，因此它们不属于数据集的一部分。我们通常用 $bold(z)$ 来表示这样的潜变量。在无条件建模观测变量 $bold(x)$ 的情况下，有向图模型将表示一个观测变量 $bold(x)$ 和潜变量 $bold(z)$ 的联合分布 $p_theta (bold(x)|bold(z))$。观测变量 $bold(x)$ 的边缘分布由以下公式给出：
+$
+p_theta = integral p_theta (bold(x),bold(z)) dif bold(z)
+$
+这也被称为（单个数据点的）边缘似然或模型证据，当它作为 $theta$ 的函数时。
+
+这种关于 $bold(x)$ 的隐式分布可能是非常灵活的。如果 $bold(z)$ 是离散的，并且 $p_theta = (bold(x)|bold(z))$ 是一个高斯分布，那么 $p_theta (bold(x))$ 就是一个高斯混合分布。对于连续的 $bold(z)$,  $p_theta (bold(x))$ 可以看作是一个无限混合，这种混合潜在地比离散混合更强大。这样的边缘分布也称为复合概率分布。
+
+=== Deep Latent Variable Models
+#v(.9em)
+*_deep latent variable model_ (DLVM) *
+
+
+表示那些分布由神经网络参数化的潜变量模型 $p_theta (bold(x), bold(z) )$ 。这样的模型可以基于某些上下文条件，如  $p_theta (bold(x),bold(z) | bold(y))$。DLVM 的一个重要优势是，即使有向模型中的每个因子（先验或条件分布）相对简单（例如条件高斯分布），其边缘分布 $p_theta (bold(x)) $ 也可以非常复杂，即包含几乎任意的依赖关系。这种表达能力使得深度潜变量模型在近似复杂的底层分布 $ p^*(bold(x))$ 时非常有吸引力。
+
+或许最简单也是最常见的 DLVM 是通过以下结构指定的分解模型：
+
+$ 
+p_theta (bold(x), bold(z)) = p_theta (bold(z)) p_theta (bold(x)|bold(z)) 
+$
+其中, $p_theta (bold(z))$ 和 $p_theta (bold(x)|bold(z) $ 是已知的。分布 $p(bold(z))$ 通常被称为潜变量 $bold(z)$ 的先验分布，因为它不以任何观测数据为条件。
+
+
+== Intractabilities
+#v(.9em)
+dlvm中最大似然学习的主要困难是*the marginal probability of data under the model*通常难以处理。
+
+由于计算边际似然(或模型证据)的方程中的积分，$p_theta (x) = integral p_θ (x, z) dif z$， *not having an
+analytic solution or efficient estimator.*。由于这种不可解性，我们不能对其参数进行微分并优化它，就像我们对完全观测模型所做的那样。计算边缘似然*Need to integrate high-dimensional space*，这在实践中是非常困难的。所以在 MLE 中，我们需要最大化数据在模型下的概率。对于 DLVMs，这涉及到计算边缘似然 $p_theta (x)$，但由于其不可解性，直接进行 MLE 是不现实的。由于直接计算边缘似然是不可行的，我们通常使用变分推断（*Variational Inference*）或马尔可夫链蒙特卡罗（*MCMC*）方法来近似后验分布。这些方法通过引入可解的近似来处理不可解的积分问题。同样，神经网络参数化的(有向模型) $p(theta|cal(D))$ 的后验通常难以精确计算，需要近似推理技术。
+
+
+= Variational Autoencoders
+#v(.9em)
+== Encoder or Approximate Posterior
+#v(.9em)
+dlvm估计这种模型中的对数似然分布和后验分布的问题。变分自编码器(VAEs)框架提供了一种计算效率高的方法来优化dlvm，并结合相应的推理模型使用SGD进行优化。
+为了将DLVM的后验推理和学习问题转化为可处理的问题，我们引入了一个参数推理模型 $q_Phi (z|x)$。这个模型也被称为编码器或识别模型。用 $Phi$ 表示该推理模型的参数，也称为变分参数。

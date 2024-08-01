@@ -31,7 +31,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "diary/2024-07-30😭.md",
+                "file": "diary/2024-08-01.md",
                 "mode": "source",
                 "source": false
               }
@@ -104,7 +104,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "diary/2024-07-30😭.md",
+                "file": "diary/2024-08-01.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -121,7 +121,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "diary/2024-07-30😭.md",
+                "file": "diary/2024-08-01.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -144,7 +144,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "diary/2024-07-30😭.md"
+                "file": "diary/2024-08-01.md"
               }
             }
           }
@@ -165,8 +165,12 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "62b670eb321f07f0",
+  "active": "8e180556b75fb40d",
   "lastOpenFiles": [
+    "diary/2024-07-31💀.md",
+    "diary/2024-08-01.md",
+    "note/Autoencoder/Autoencoder.md",
+    "diary/2024-07-30😭.md",
     "学习内容/论文/张静雯.pdf",
     "probability_logic_of_science/ProbabilityLogic.typ",
     "probability_logic_of_science/概率论沉思录英文.pdf",
@@ -175,12 +179,9 @@
     "src/autoencoder/autoencoder.py",
     "autoencoder.py",
     "学习内容/对比学习/论文笔记.pdf",
-    "diary/2024-07-30😭.md",
     "src/net/model/test.py",
     "src/net/model/cnn.py",
-    "src/net/model",
     "diary/2024-07-19😙.md",
-    "note/Autoencoder/Autoencoder.md",
     "diary/2024-07-08😴.md",
     "note/GAN/需要知道的东西.md",
     "img/bayesian Directed Graph Model.png",
