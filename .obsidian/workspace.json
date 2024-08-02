@@ -31,7 +31,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "diary/2024-08-01.md",
+                "file": "diary/2024-08-01😶‍🌫️.md",
                 "mode": "source",
                 "source": false
               }
@@ -104,7 +104,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "diary/2024-08-01.md",
+                "file": "diary/2024-08-01😶‍🌫️.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -121,7 +121,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "diary/2024-08-01.md",
+                "file": "diary/2024-08-01😶‍🌫️.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -144,7 +144,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "diary/2024-08-01.md"
+                "file": "diary/2024-08-01😶‍🌫️.md"
               }
             }
           }
@@ -165,10 +165,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "8e180556b75fb40d",
+  "active": "62b670eb321f07f0",
   "lastOpenFiles": [
+    "diary/2024-08-02🥲.md",
+    "diary/2024-08-01😶‍🌫️.md",
     "diary/2024-07-31💀.md",
-    "diary/2024-08-01.md",
     "note/Autoencoder/Autoencoder.md",
     "diary/2024-07-30😭.md",
     "学习内容/论文/张静雯.pdf",
