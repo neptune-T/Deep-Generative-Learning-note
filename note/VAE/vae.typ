@@ -252,4 +252,68 @@ analytic solution or efficient estimator.*。由于这种不可解性，我们�
 == Encoder or Approximate Posterior
 #v(.9em)
 dlvm估计这种模型中的对数似然分布和后验分布的问题。变分自编码器(VAEs)框架提供了一种计算效率高的方法来优化dlvm，并结合相应的推理模型使用SGD进行优化。
-为了将DLVM的后验推理和学习问题转化为可处理的问题，我们引入了一个参数推理模型 $q_Phi (z|x)$。这个模型也被称为编码器或识别模型。用 $Phi$ 表示该推理模型的参数，也称为变分参数。
+为了将DLVM的后验推理和学习问题转化为可处理的问题，我们引入了一个参数推理模型 $q_(phi.alt) (z|x)$。这个模型也被称为编码器或识别模型。用 $phi.alt$ 表示该推理模型的参数，也称为变分参数。我们优化变分参数 $phi.alt$:
+
+$
+q_(phi.alt) (bold(z)|bold(x)) approx p_theta (bold(z)|bold(x))
+$
+像DLVM一样，推理模型可以是(几乎)任何有向图形模型:
+$
+q_(phi.alt) (bold(z)|bold(x)) = q_(phi.alt) (bold(z)_1,...,bold(z)_M |bold(x)) = product_(j=1)^M q_(phi.alt) (bold(z)_j | P_a (bold(z)_j),bold(x)) 
+$
+$P_a (bold(z)_j)$ 是变量 $bold(z)_j$ 在有向图中的父变量集合。与DLVM类似，分布 $q_(phi.alt)(bold(z)|bold(x))$ 可以使用深度神经网络参数化。
+
+$
+(mu,log sigma) = "EncoderNeuralNet"_(phi.alt) (x)
+$
+
+$
+q_(phi.alt) (bold(z)|bold(x)) = cal(N) (z;mu,"diag"(sigma))
+$
+我们使用单个编码器神经网络对数据集中的所有数据点执行后验推理。这可以与更传统的变分推理方法形成对比，其中变分参数不是共享的，而是每个数据点单独迭代优化的。通过平摊推理，我们可以避免每个数据点的优化循环，并利用SGD的效率。
+#v(4em)
+== Evidence Lower Bound (ELBO)
+#v(1em)
+#figure(
+  image("../../img/vae.png", width:70%),
+  caption: [
+    It shows how to learn and generate new data through mapping between latent variable space ($cal(z)$-space) and observed data space ($cal(x)$-space).
+  ],
+) 
+VAE 通过编码器和解码器网络，利用先验分布、后验近似和重建分布，实现对复杂数据分布的近似建模和生成。
+#v(6em)
+变分参数$phi.alt$:
+$
+log p_theta (bold(x)) &= EE_(q_(phi.alt)(bold(z)|bold(x))) [log p_theta (x)]\
+                 &= EE_(q_(phi.alt)(bold(z)|bold(x))) [log [(p_theta (bold(x),bold(z)))/ (p_theta (bold(z)|bold(x)))]]\
+                 &= EE_(q_(phi.alt)(bold(z)|bold(x))) [log [(p_theta (bold(x),bold(z)))/ (q_(phi.alt) (bold(z)|bold(x))) (q_(phi.alt) (bold(z)|bold(x)))/(p_theta (bold(z)|bold(x)))]]\
+                 &= underbrace(
+                    EE_(q_(phi.alt)(bold(z)|bold(x))) [log [(p_theta (bold(x),bold(z)))/ (q_(phi.alt) (bold(z)|bold(x) ))]], 
+                    
+                    = cal(L)_theta.. phi.alt(x)\
+                    ("ELBO")
+                    ) 
+                    +
+                    underbrace(
+                    EE_(q_(phi.alt)(bold(z)|bold(x))) [log [(q_(phi.alt) (bold(z)|bold(x)))/(p_theta (bold(z)|bold(x))) ]],
+                    =D_"KL" (q_(phi.alt) (bold(z)|bold(x))||p_theta (bold(z)|bold(x)) )
+                    )
+$
+第二项是$q_(phi.alt) (z|x)$与$p_θ (z|x)$之间的*Kullback-Leibler (KL)*散度是非负的,当等于0时,$q_(phi.alt)(z|x)$ 等于真实后验分布:
+$
+D_"KL" (q_(phi.alt) (bold(z)|bold(x))||p_theta (bold(z)|bold(x)) ) >= 0
+$
+
+第一项是变分下界，也称为证据下界(ELBO):
+$
+cal(L)_(theta,phi.alt) (bold(x)) = EE_(q_(phi.alt)(bold(z|bold(x)))) [log p _theta (bold(x),bold(z)) - log q_(phi.alt) (bold(z)|bold(x))]
+$
+由于KL散度的非负性，ELBO是数据的对数似然的下界:
+$
+cal(L)_(theta,phi.alt) (bold(x)) &= log p_theta (bold(x)) -D_"KL" (q_(phi.alt) (bold(z)|bold(x))||p_theta (bold(z)|bold(x)) )\
+&<=log p_theta (bold(x)) 
+$
+
+
+
+== Stochastic Gradient-Based Optimization of the ELBO
