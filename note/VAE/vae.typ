@@ -317,3 +317,244 @@ $
 
 
 == Stochastic Gradient-Based Optimization of the ELBO
+#v(.9em)
+ELBO的一个重要性质是，它允许使用随机梯度下降(SGD)对所有参数( $phi.alt$ 和 $theta$ )进行联合优化。
+
+我们可以从$phi.alt$和$theta$的随机初始值开始，随机优化它们的值，直到收敛。
+
+$
+cal( L ) _ ( theta, phi.alt ) ( cal( D ) ) = sum _ ( bold( upright( x ) ) in cal( D ) ) cal( L ) _ ( theta, phi.alt ) ( bold( upright( x ) ) )
+$
+
+一般来说，单个数据点ELBO及其梯度 $nabla_(theta,phi.alt) cal(L)_(theta,phi.alt)(x)$ 是难以处理的。然而，正如我们将展示的那样，存在良好的无偏估计量$tilde(nabla)_(theta,phi.alt)cal(L)_(theta,phi.alt)(x) $，这样我们仍然可以执行小批量SGD。生成模型参数$theta$下ELBO的无偏梯度很容易得到:
+
+$
+nabla _ ( theta ) cal( L ) _ ( theta ) cal( L ) _ ( theta, phi.alt ) ( bold( upright( x ) ) ) 
+    & = nabla _ ( theta ) bb( E ) _ ( q _ ( phi.alt ) ( bold( upright( z ) ) ) ) [ log p _ ( theta ) ( bold( upright( z ) ), bold( upright( z ) ) ) ] \ 
+    & = bb( E ) _ ( q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( z ) ) ) ) [ nabla _ ( theta ) ( log p _ ( theta ) ( bold( upright( x ) ), bold( upright( z ) ) ) - log q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( z ) ) ) ) ] \ 
+    & "Monte Carlo"\
+    & tilde.eq nabla _ ( theta ) ( log p _ ( theta ) ( bold( upright( x ) ), bold( upright( z ) ) ) - log q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( x ) ) ) ) \ 
+    & = nabla _ ( theta ) ( log p _ ( theta ) ( bold( upright( x ) ), bold( upright( z ) ) )
+$
+
+== Reparameterization Trick
+#v(.9em)
+对于连续潜变量和可微编码器和生成模型，可以通过变量的变化直接对ELBO进行$phi.alt$和$theta$的微分，也称为重参数化技巧。
+
+=== Change of variables
+#v(.9em)
+首先，我们将随机变量 $bold( upright( z ) ) tilde q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( x ) ) ) $表示为另一个随机变量 $ epsilon.alt$ 的可微(可逆)变换，给定$z$和$phi.alt$:
+$
+bold( upright( z ) ) = g ( epsilon.alt, phi.alt, bold( upright( x ) ) )
+$
+其中，随机变量 $ϵ$ 的分布与 $x$ 或 $𝜙$ 无关。这一步的目的是将随机变量 $cal(z)$ 表示为一种可微分的方式，从而使得梯度可以有效地计算。
+
+重新参数化技巧的主要优势在于它将不可微分的采样过程转化为可微分的参数化过程，从而使得梯度下降优化成为可能。
+
+#block(
+  width: 100%,
+  fill: white,
+  inset: 8pt,
+  stroke: 0.5pt,
+  [
+    *Algorithm 1*: 
+    ELBO的随机优化。由于噪声来源于小批量采样和$p(epsilon)$的采样，因此这是一个双重随机优化过程。我们也把这个过程称为自动编码变分贝叶斯(AEVB)_the Auto-Encoding Variational Bayes_算法。
+
+    *Data:*
+    - $cal(D)$: Dataset
+    - $q_phi.alt (z|x)$: Inference model
+    - $p_theta (x,z)$: Generative model
+
+    *Result:*
+    - $theta, phi.alt$: Learned parameters
+
+    $(theta, phi.alt) arrow.l$ Initialize parameters \
+    *while* SGD not converged *do* \
+    $quad cal(M) tilde cal(D)$ (Random minibatch of data) \
+    $quad epsilon tilde p(epsilon)$ (Random noise for every datapoint in $cal(M)$) \
+    $quad$ Compute $tilde(cal(L))_(theta,phi.alt)(cal(M),epsilon)$ and its gradients $nabla_(theta,phi.alt) tilde(cal(L))_(theta,phi.alt)(cal(M),epsilon)$ \
+    $quad$ Update $theta$ and $phi.alt$ using SGD optimizer \
+    *end*
+  ]
+)
+
+=== Gradient of expectation under change of variable
+#v(1em)
+在变量变换的基础上，我们可以将期望用新的随机变量 $epsilon$ 表示：
+$
+bb( E ) _ ( q _ ( phi.alt ) ( bold( upright( z ) ) ) ) [ f ( bold( upright( z ) ) ) ] = bb( E ) _ ( p ( epsilon.alt ) ) [ f ( bold( upright( z ) ) ) ]
+$
+
+其中，$bold(z)=g(epsilon,phi.alt,bold(x))$。通过这种变换，期望运算符和梯度运算符变得可交换，我们可以进行简单的蒙特卡罗估计:
+
+$
+nabla _ ( phi.alt ) bb( E ) _ ( q _ ( phi.alt ) ( bold( upright( z ) ) ) ( bold( upright( z ) ) ) ) [ f ( bold( upright( z ) ) ) ] 
+    & = nabla _ ( phi.alt ) bb( E ) _ ( p ( epsilon.alt ) ) [ f ( bold( upright( z ) ) ) ] 
+$
+由于 $z$ 是 $epsilon, phi, x$ 的可微函数，我们可以交换梯度运算符和期望运算符,然后通过从 $p(epsilon)$ 中采样 $epsilon$，我们可以得到对梯度的近似估计：
+$
+nabla _ ( phi.alt ) bb( E ) _ ( q _ ( phi.alt ) ( bold( upright( z ) ) ) ( bold( upright( z ) ) ) ) [ f ( bold( upright( z ) ) ) ] 
+    & = bb( E ) _ ( p ( epsilon.alt ) ) [ nabla _ ( phi.alt ) f ( bold( upright( z ) ) ) ] \ 
+    & tilde.eq nabla _ ( phi.alt ) f ( bold( upright( z ) ) )
+$
+
+
+#figure(
+  image("../../img/epsilon.png", width:100%),
+  caption: [This image illustrates the reparameterization trick, a critical technique in variational autoencoders (VAEs) for efficient gradient-based optimization. The trick allows us to rewrite the sampling process of latent variables in a differentiable manner.
+    .
+  ],
+) 
+
+#let body-text = 10pt
+#let summary-text = 11pt
+
+图 2 展示了重新参数化技巧的工作原理，主要包括以下两个部分：原始形式和重新参数化形式。
+#grid(
+  columns: (5fr, 5fr),
+  gutter: 16pt,
+
+  column-gutter: 0fr,
+  [
+    #text(size: body-text)[
+      #set list(marker: text(green)[#sym.bullet])
+      左图：原始形式（Original form）
+      + 节点表示：
+        - *灰色节点（Deterministic node）*：表示确定性节点，如目标函数 $f$。
+        - *蓝色节点（Random node）*：表示随机节点，如潜变量 $z$。
+
+      + 图示描述：
+        - 随机变量 $z$ 从推断模型 $q_phi.alt (z|x)$ 中采样。
+        - 目标函数 $f$ 依赖于 $z$ 和参数 $phi.alt$。
+
+      2. 问题：
+        - 我们希望对目标函数 $f$ 求梯度以优化参数 $phi.alt$。
+        - 由于 $z$ 是从 $q_phi.alt (z|x)$ 中采样的，无法直接对 $z$ 进行反向传播，从而无法对 $phi$ 求导。
+
+    ]
+  ],
+
+  [
+    #text(size: body-text)[
+      #set list(marker: text(blue)[→])
+      右图：重新参数化形式（Reparameterized form）
+
+      1. 节点表示：
+        - *灰色节点（Deterministic node）*：表示确定性节点，如目标函数 $f$。
+        - *蓝色节点（Random node）*：表示随机节点，如噪声 $epsilon$。
+
+      2. 图示描述：
+        - 将随机变量 $z$ 表示为 $epsilon, phi.alt, x$ 的可微函数： $z = g(phi.alt, x, epsilon)$。
+        - $epsilon$ 是从简单的分布 $p(epsilon)$ 中采样的随机噪声。
+
+      3. 梯度计算：
+        - 由于 $z$ 现在是 $epsilon, phi.alt, x$ 的可微函数，我们可以对 $z$ 进行反向传播。
+        - 这使得我们可以对参数 $phi.alt$ 求导并优化目标函数 $f$。
+    ]
+  ]
+)
+
+重新参数化技巧的步骤
+
+  1. 变量变换：将潜变量 $z$ 表示为噪声 $epsilon$ 和参数 $phi.alt$、观测数据 $x$ 的可微函数：$z = g(epsilon, phi.alt,x)$。
+  2. 期望重写：利用变量变换，将期望用新的随机变量 $epsilon$ 表示：$EE_q_phi.alt(z|x) [f(z)] = EE_p(epsilon) [f(z)]$。
+  3. 梯度计算：交换梯度运算符和期望运算符，使用蒙特卡罗采样近似期望，从而计算梯度。
+
+重新参数化技巧的优势
+
+- 使梯度计算可行：通过将采样过程外部化，使得梯度可以通过反向传播进行计算。
+- 提高计算效率：简化梯度计算过程，使用蒙特卡罗采样进行近似估计。
+
+=== Gradient of ELBO
+#v(.9em)
+在重新参数化的情况下，我们可以替换期望 $q_phi.alt (z|x)$与一个$p (epsilon)$。ELBO可以重写为:
+$
+cal( L ) _ ( theta, phi.alt ) ( x ) & = bb( E ) _ ( q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( x ) ) ) ) [ log p _ ( theta ) ( bold( upright( x ) ), bold( upright( z ) ) ) - log q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( z ) ) ) ] \ & = bb( E ) _ ( p ( epsilon.alt ) ) [ log p _ ( theta ) ( bold( upright( x ) ), bold( upright( z ) ) ) - log q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( x ) ) ) ]
+$
+因此，我们可以形成单个数据点ELBO的简单蒙特卡罗估计量$tilde( cal( L ) ) _ ( theta, phi.alt ) ( x )$，其中我们使用来自$p(epsilon)$的单个噪声样本$epsilon$:
+$
+epsilon.alt tilde p ( epsilon.alt ) \ z = g ( phi.alt, x, epsilon.alt ) \ tilde( L ) _ ( theta, phi.alt ) ( x ) = log p _ ( theta ) ( x, z ) - log q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( x ) ) )
+$
+这一系列操作可以在TensorFlow等软件中表示为符号图，并毫不费力地微分参数θ和φ.
+
+该算法最初被称为_Auto-Encoding Variational Bayes _(AEVB)算法。更一般地说，重新参数化的ELBO估计被称为随机梯度变分贝叶斯_(SGVB)_估计。这个估计器也可以用来估计模型参数的后验.
+
+=== Computation of log qφ(z|x)
+#v(.9em)
+ELBO(估计量)的计算需要计算密度对数$q_phi.alt (z|x)$，给定值$x$，并给定值$z$或等价的$epsilon$。这个对数密度是一个简单的计算，只要我们选择正确的变换$g()$。
+
+注意，我们通常知道密度$p(epsilon)$，因为这是所选噪声分布的密度。只要$g(.)$是可逆函数，则$epsilon$和$z$的密度关系式为:
+
+(通过变量变换和概率密度函数的性质推导出来的,见2.4.4.1)
+$
+log q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( x ) ) ) = log p ( epsilon.alt ) - log d _ ( phi.alt ) ( bold( upright( x ) ), epsilon.alt )
+$
+其中第二项是雅可比矩阵$(diff_z/diff_epsilon)$的行列式绝对值的对数,包含了从 $epsilon$ 到 $cal(z)$ 变换的所有一阶导数:
+$
+log d _ ( phi.alt ) ( bold( upright( x ) ), epsilon.alt ) = log abs( det ( ( diff bold( upright( z ) ) ) / ( diff epsilon.alt ) ) )
+$
+
+
+
+$
+( diff bold( upright( z ) ) ) / ( diff epsilon.alt ) = ( diff ( z _ ( 1 ),..., z _ ( k ) ) ) / ( diff ( epsilon.alt _ ( 1 ),..., epsilon.alt _ ( k ) ) ) = mat( ( diff z _ ( 1 ) ) / ( diff epsilon.alt _ ( 1 ) ),..., ( diff z _ ( 1 ) ) / ( diff epsilon.alt _ ( k ) ) ; dots.v, dots.down, dots.v ; ( diff z _ ( k ) ) / ( diff epsilon.alt _ ( 1 ) ),..., ( diff z _ ( k ) ) / ( diff epsilon.alt _ ( k ) ) )
+$
+
+
+==== deduce
+#v(.9em)
+假设我们有一个随机变量 $z$，它通过一个可微且可逆的变换 $g$ 由随机变量 $ϵ$ 得到，即：
+$
+bold( upright( z ) ) = g ( epsilon.alt, phi.alt, bold( upright( x ) ) )
+$
+根据概率密度函数的变换性质，如果 $z=g(epsilon)$，那么 $z$ 的概率密度函数 $q_phi.alt (z|x)$ 和 $epsilon$ 的概率密度函数 $p(epsilon)$ 之间有如下关系：
+$
+q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( x ) ) ) = p ( epsilon.alt ) abs( det ( ( diff epsilon.alt ) / ( diff bold( upright( z ) ) ) ) )
+$
+
+但是，因为我们通常是知道 $(diff z)/(diff epsilon)$ 而不是 $(diff epsilon)/(diff z)$，我们需要使用雅可比行列式的逆关系：
+$
+abs( det ( ( diff epsilon.alt ) / ( diff z ) ) ) = ( 1 ) / ( abs( det ( ( diff z ) / ( diff epsilon.alt ) ) ) )
+$
+密度关系表示:
+$
+q _ ( phi.alt ) ( bold( upright( z ) ) )  = p ( epsilon.alt ) abs( det ( ( diff epsilon.alt ) ( diff z ) ) ) = p ( epsilon.alt ) abs( ( 1 ) / ( det ( ( diff epsilon.alt ) / ( diff epsilon.alt ) ) ) ) 
+$
+$ 
+q _ ( phi.alt ) ( bold( upright( z ) ) ) & = p ( epsilon.alt ) abs( det ( ( diff z ) / ( diff epsilon.alt ) ) ) ^ ( - 1 )
+$
+
+== Factorized Gaussian posteriors
+#v(.9em)
+一个常见的选择是一个简单的_ factorized Gaussian encoder_
+$
+q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( x ) ) ) = cal( N ) ( bold( upright( z ) ) ; mu, op( upright( d i a g ) ) ( sigma ^ ( 2 ) ) )
+$
+其中，$mu$ 和 $log sigma$ 通过一个编码器神经网络 
+$"EncoderNeuralNet"_phi.alt (x)$获得：
+$
+ q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( x ) ) ) = cal( N ) ( bold( upright( z ) ) ; mu, op( upright( d i a g ) ) ( sigma ^ ( 2 ) ) )
+$
+后验分布因子化为每个潜在变量 $cal(z)_i$  的高斯分布的乘积：
+$
+q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( x ) ) ) = product _ ( i ) q _ ( phi.alt ) ( z _ ( i ) | bold( upright( x ) ) ) = product _ ( i ) cal( N ) ( z _ ( i ) ; mu _ ( i ), sigma _ ( i ) ^ ( 2 ) )
+$
+将高斯随机变量 $z$ 表示为标准正态分布 $epsilon$ 经过线性变换的结果：
+$
+epsilon.alt tilde cal( N ) ( 0, bold( upright( I ) ) ) 
+$
+$ 
+( mu, log sigma ) = E n c o d e r N e u r a l N e t _ ( phi.alt ) ( bold( upright( x ) ) ) 
+$
+$ 
+bold( upright( z ) ) = mu + sigma dot.circle epsilon.alt
+$
+从 $ϵ$ 到 $z$ 的变换的雅可比矩阵是对角矩阵，其对角线元素是 $σ$:
+$
+(diff z)/(diff epsilon) = d i a g (sigma)
+$
+对角矩阵的行列式是其对角线元素的乘积，因此其对数行列式是对角线元素的对数之和：
+$
+log d _ ( phi.alt ) ( bold( upright( x ) ), epsilon.alt ) = log abs( det ( ( diff bold( upright( z ) ) ) / ( diff epsilon.alt ) ) ) = sum _ ( i )  log sigma _ ( i )
+$
+
