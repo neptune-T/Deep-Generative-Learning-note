@@ -557,4 +557,103 @@ $
 $
 log d _ ( phi.alt ) ( bold( upright( x ) ), epsilon.alt ) = log abs( det ( ( diff bold( upright( z ) ) ) / ( diff epsilon.alt ) ) ) = sum _ ( i )  log sigma _ ( i )
 $
+后验密度为:
+$
+log q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( x ) ) ) & = log p ( epsilon.alt ) - log d _ ( phi.alt ) ( bold( upright( x ) ), epsilon.alt ) \ & = sum _ ( i ) log cal( N ) ( epsilon.alt _ ( i ) ; 0, 1 ) - log sigma _ ( i )
+$
+
+=== Full-covariance Gaussian posterior
+#v(.9em)
+因式高斯后验可以推广为具有全协方差的高斯:
+$
+q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( x ) ) ) = cal( N ) ( bold( upright( z ) ) ; bold( upright( mu ) ), bold( upright( Sigma ) ) )
+$
+该分布的重新参数化由下式给出:
+$
+epsilon.alt tilde cal( N ) ( 0, bold( upright( I ) ) ) \ bold( upright( z ) ) = mu + bold( upright( L ) ) epsilon.alt
+$
+其中 $bold(L)$ 是下(或上)三角矩阵，在对角线上有非零元素。非对角线元素定义了 $z$ 中元素的相关性(协方差)。对于这种全协方差高斯模型，雅可比行列式很简单，因为：
+$
+(diff z)/(diff epsilon) = bold(L)
+$
+因为 $bold(L)$ 是下(或上)三角矩阵，所以行列式是其对角线元素的乘积:
+$
+log abs( det ( ( diff bold( upright( z ) ) ) / ( diff epsilon.alt ) ) ) = sum _ ( i ) log abs( L _ ( i i ) )
+$
+后验密度的对数计算为：
+$
+log q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( x ) ) ) = log p ( epsilon.alt ) - sum _ ( i ) log abs( L _ ( i i ) )
+$
+协方差矩阵 $Σ$ 可以通过 Cholesky 分解得到：
+$
+Sigma = bold( upright( L ) ) bold( upright( L ) ) ^ ( T )
+$
+协方差矩阵 $sum$ 的计算过程为：
+$
+Sigma = bb( E ) [ ( bold( upright( z ) ) - bb( E ) [ bold( upright( z ) ) ] ) ( bold( upright( z ) ) - bb( E ) [ bold( upright( z ) ) ] ) ^ ( T ) ]
+$
+通过引入 $epsilon$，我们有:
+$
+Sigma = bb( E ) [ ( bold( upright( z ) ) - bb( E ) [ bold( upright( z ) ) ] ) ( bold( upright( z ) ) - bb( E ) [ bold( upright( z ) ) ] ) ^ ( T ) ]
+$
+由于 $epsilon.alt tilde cal( N ) ( 0, bold( upright( I ) ) )$ 有：
+$
+bb( E ) [ epsilon.alt epsilon.alt ^ ( T ) ] = bold( upright( I ) )
+$
+通过神经网络获取参数 $mu$ ,$log sigma$和 $bold(L)'$ ：
+$
+( mu, log sigma, bold( upright( L )' ) )  <- E n c o d e r N e u r "Net" _ ( phi.alt ) ( bold( upright( x ) ) ) 
+$
+构建$bold(L)$矩阵:
+$
+L <- bold( upright( L ) ) _ ( m a s k ) dot.circle bold( upright( L ) ) ^ ( zwj' ) + "diag" ( sigma )
+$
+$bold(L)_(m a s k)$是一个掩码矩阵，其对角线下方的元素为1，对角线和对角线上方的元素为0。
+
+对于因子化高斯情形，后验密度的对数计算为：
+$
+log abs( det ( ( diff bold( upright( z ) ) ) / ( diff epsilon.alt ) ) ) = sum _ ( i ) log sigma _ ( i )
+$
+
+#block(
+  width: 100%,
+  fill: white,
+  inset: 8pt,
+  stroke: 0.5pt,
+  [
+    *Algorithm 2*: 
+    单数据点ELBO无偏估计的计算，用于具有全协方差高斯推理模型和因子化伯努利生成模型的VAE示例。$L_("mask")$是一个掩蔽矩阵，对角线上及以上为零，对角线下为一。
+
+    *Data:*
+    - $x$: : a datapoint, and optionally other conditioning information
+    - $epsilon$: a random sample from $p(epsilon) = cal(N)(0,I)$ 
+    - $theta$:  Generative model parameters
+    - $phi.alt$: Inference model parameters
+    - $q_phi.alt(z|x)$: Inference model
+    - $p_theta(x,z)$: Generative model
+
+
+    *Result:*
+    - $tilde(cal(L))$: 单数据点ELBO $cal(L)_(theta,phi.alt)(x)$ 的无偏估计
+    #v(.9em)
+    $(mu, log sigma, bold(L')) arrow.l "EncoderNeuralNet"_phi.alt (x)$ \
+    $bold(L) arrow.l bold(L)_(m a s k) dot.circle bold(L') + d i a g (sigma)$ \
+    $epsilon tilde cal(N)(0,I)$ \
+    $z arrow.l bold(L) epsilon + mu$ \
+    $tilde(cal(L))_("logqz") arrow.l - sum_i (1/2(epsilon_i^2 + log(2pi) + log sigma_i))_i$
+    #h(1fr) 
+    $triangle.r = q_phi.alt (z|x)$ \
+    $tilde(cal(L))_("logpz") arrow.l - sum_i (1/2(z_i^2 + log(2pi)))$
+    #h(1fr) 
+    $triangle.r = p_theta (z)$ \
+    $p arrow.l "DecoderNeuralNet"_theta (z)$ \
+    $tilde(cal(L))_("logpx") arrow.l sum_i (x_i log p_i + (1 - x_i) log(1 - p_i))$ 
+    #h(1fr) 
+    $triangle.r = p_theta (x|z)$ \
+    $tilde(cal(L)) = tilde(cal(L))_("logpx") + tilde(cal(L))_("logpz") - tilde(cal(L))_("logqz")$
+  ]
+)
+
+
+
 
