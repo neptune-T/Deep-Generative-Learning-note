@@ -518,7 +518,7 @@ abs( det ( ( diff epsilon.alt ) / ( diff z ) ) ) = ( 1 ) / ( abs( det ( ( diff z
 $
 密度关系表示:
 $
-q _ ( phi.alt ) ( bold( upright( z ) ) )  = p ( epsilon.alt ) abs( det ( ( diff epsilon.alt ) ( diff z ) ) ) = p ( epsilon.alt ) abs( ( 1 ) / ( det ( ( diff epsilon.alt ) / ( diff epsilon.alt ) ) ) ) 
+q _ ( phi.alt ) ( bold( upright( z ) ) )  = p ( epsilon.alt ) abs( det ( ( diff epsilon.alt ) /( diff z ) ) ) = p ( epsilon.alt ) abs( ( 1 ) / ( det ( ( diff epsilon.alt ) / ( diff epsilon.alt ) ) ) ) 
 $
 $ 
 q _ ( phi.alt ) ( bold( upright( z ) ) ) & = p ( epsilon.alt ) abs( det ( ( diff z ) / ( diff epsilon.alt ) ) ) ^ ( - 1 )
@@ -622,7 +622,7 @@ $
   stroke: 0.5pt,
   [
     *Algorithm 2*: 
-    单数据点ELBO无偏估计的计算，用于具有全协方差高斯推理模型和因子化伯努利生成模型的VAE示例。$L_("mask")$是一个掩蔽矩阵，对角线上及以上为零，对角线下为一。
+    单数据点ELBO无偏估计的计算，用于具有全协方差高斯推理模型和因子化伯努利生成模型的VAE示例。$L_("mask")$是一个掩蔽矩阵，主要用于控制哪些元素会被保留或忽略。对角线上及以上为零，对角线下为一。
 
     *Data:*
     - $x$: : a datapoint, and optionally other conditioning information
@@ -654,6 +654,142 @@ $
   ]
 )
 
+== Estimation of the Marginal Likelihood
+#v(.9em)
+在训练一个VAE之后，我们可以使用抽样技术来估计模型下数据的概率。数据点的边际似然可以表示为:
+$
+log p _ ( theta ) ( bold( upright( x ) ) ) = log bb( E ) _ ( q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( x ) ) ) ) [ p _ ( theta ) ( bold( upright( x ) ), bold( upright( z ) ) ) slash q _ ( phi.alt ) ( bold( upright( z ) ) | bold( upright( x ) ) ) ]
+$
+
+取$q_(phi.alt) (z|x)$的随机样本，其蒙特卡罗估计量为:
+$
+log p _ ( theta ) ( bold( upright( x ) ) ) approx log ( 1 ) / ( L ) sum _ ( l = 1 ) ^ ( L ) p _ ( theta ) ( bold( upright( x ) ), bold( upright( z ) ) ^ ( ( l ) ) ) slash q _ ( phi.alt ) ( bold( upright( z ) ) ^ ( ( l ) ) | bold( upright( x ) ) )
+$
+每个 $z ^ ( ( l ) ) tilde q _ ( phi.alt ) ( z | bold( upright( x ) ) )$ 是从推断模型中随机采样得到的隐变量样本。
+
+每次采样都会得到一个新的隐变量 $cal(z)^((l))$ ,对每一个 $l$,我们计算 $( p _ ( theta ) ( bold( upright( x ) ), z ^ ( ( l ) ) ) ) / ( q _ ( phi.alt ) ( z ^ ( ( l ) ) | bold( upright( x ) ) ) )$,然后求和取平均值。通过增加采样次数 $L$，这个估计会越来越接近实际的边缘似然。
+== Marginal Likelihood and ELBO as KL Divergences
+#v(.9em)
+边缘似然是一个很难直接计算的量，通过ELBO的优化，可以间接优化边缘似然。提高ELBO的紧密性，即减少ELBO和真实边缘似然之间的差距
+
+提高ELBO潜在紧密性的一种方法是增加生成模型的灵活性。(生成模型的灵活性决定了其拟合数据分布的能力),这可以通过ELBO和KL散度之间的联系来理解。
+
+重点会解释_Evidence Lower Bound, ELBO_和_Kullback-Leibler _是如何与变分自编码器（VAE）中的边缘似然（Marginal Likelihood）相关的。阐述如何通过提高生成模型的灵活性来增强ELBO的紧密性，并提供了ELBO和KL散度之间的数学联系.
+
+边缘似然和最大似然准则：
+
+对于一个独立同分布的（i.i.d.）数据集 $cal(D)$，其大小为 $N_cal(D)$ ，最大似然准则为：
+$
+log p _ ( theta ) ( cal( D ) ) &= ( 1 ) / ( N _ ( D ) ) sum _ ( x in cal( D ) ) log p _ ( theta ) ( x ) \ 
+&= bb( E ) _ ( q _ ( cal(D) ) ( x ) ) [ log p _ ( theta ) ( x ) ]
+$
+这里的 $q_cal(D)(x)$是经验数据分布。
+
+经验数据分布：
+$
+q _ ( D ) ( x ) = ( 1 ) / ( N ) sum _ ( i = 1 ) ^ ( N ) q _ ( D ) ^ ( ( i ) ) ( x )
+$
+每个组件 $q_cal(D)^(cal(i)) (x)$ 通常对应于一个以值$x^(cal((i)))$ 为中心的Dirac delta分布（对于连续数据），或者一个离散分布，所有概率质量集中在值 $x^((i))$ 上（对于离散数据）。
+
+数据分布和模型分布之间的KL散度可以写成：
+$
+D _ ( K L ) ( q _ ( D ) ( x ) || p _ ( theta ) ( x ) ) 
+  & = - bb( E ) _ ( q _ ( D ) ( x ) ) [ log p _ ( theta ) ( x ) ] + bb( E ) _ ( q _ ( D ) ( x ) ) [ log q _ ( D ) ( x ) ] \ 
+  & = - log p _ ( theta ) ( cal( D ) ) + "常数"
+$
+这里的常数是 $- cal( H ) ( q _ ( D ) ( x ) )$,最小化这个KL散度等价于最大化数据对数似然 $log p_theta (cal(D))$
+
+通过结合经验数据分布$q_D (x)$和推断模型 $q_phi.alt (cal(z)|x)$，我们得到了一个关于数据 $x$ 和潜变量 $cal(z)$ 的联合分布：
+$
+q _ ( D, phi.alt ) ( x, z ) = q _ ( D ) ( x ) q _ ( phi.alt ) ( z | x )
+$
+而对于 $q_(D,phi.alt) (x,cal(z))$ 和 $p_theta (x,cal(z)) $之间的KL散度可以写成负的ELBO，再加上一个常数：
+
+$
+D _ ( K L ) ( q _ ( D, phi.alt ) ( x, z ) || p _ ( theta ) ( x, z ) )  
+  &= - bb( E ) _ ( q _ ( D ) ( x ) ) [ bb( E ) _ ( q _ ( o ) ( z | x ) ) [ log p _ ( theta ) ( x, z ) - log q _ ( phi.alt ) ( z | x ) ] ] - bb( E ) _ ( q _ ( D ) ( x ) ) [ log q _ ( D ) ( x ) ] \
+  &= - cal( L ) _ ( theta, phi.alt ) ( cal( D ) ) + "常数"
+$
+
+常数是 $- cal( H ) ( q _ ( D ) ( x ) )$
+
+最大似然和ELBO目标之间的关系可以总结如下：
+$
+D _ ( K L ) ( q _ ( D, phi.alt ) ( x, z ) || p _ ( theta.alt ) ( x, z ) ) = & D _ ( K L ) ( q _ ( D ) ( x ) ) + bb( E ) _ ( q _ ( D ) ( x ) ) [ D _ ( K L ) ( q _ ( phi.alt ) ( x ) ) + bb( E ) _ ( q _ ( D ) ( phi.alt ) ) [ p _ ( theta ) ( z | x ) ) ] \ >= & D _ ( K L ) ( q _ ( D ) ( x ) || p _ ( theta.alt ) ( x ) )
+$
+
+ELBO可以被视为在一个扩展空间中的最大似然目标。对于某个固定的编码器​ $q_(phi.alt)(x|cal(z))$，联合分布 $p_theta(x,cal(z))$可以看作是对原始数据 $x$ 和每个数据点相关的随机辅助特征 $cal(z)$ 的扩展经验分布。
+
+#v(100em)
+== Challenges
+#v(.9em)
+=== Optimization issues
+#v(.9em)
+我们发现具有未修改下界目标的随机优化可能陷入不希望的稳定平衡。在训练开始时，似然项 $log p (x|z)$相对较弱，因此初始吸引状态是 $q(z|x)≈p(z)$，从而导致难以逃脱的稳定平衡。
+
+后来提出的解决方案是使用一个优化调度，其中潜在成本 $D_"KL" (q(z|x) || p(z))$ 的权重在多个epoch中从0慢慢退火到1。
+
+潜在维度被划分为 $K$ 组。
+使用一个小批量目标来确保每个子集 $j$ 中使用的信息量不少于某个阈值 $lambda$。
+
+而最大似然目标*（ML objective）*可以看作是最小化 $D _ ( K L ) ( q _ ( D ) ( x ) || p _ ( theta ) ( x ) )$ ，其中 $q_D (x)$是数据分布， $p_theta (x)$ 是模型分布。
+
+ELBO目标可以看作是最小化 $D _ ( K L ) ( q _ ( D, phi.alt ) ( x, cal(z) ) || p _ ( theta ) ( x, cal(z) ) )$，其中 $q_(D,phi.alt) (x,cal(z)) = q_D(x)q_phi.alt (cal(z)| x)$ 
+
+因为KL散度的方向,完美拟合是不可能的，那么 
+$p_theta (x,cal(z))$ 的方差通常会比 $q_(D,phi.alt)(x,cal(z))$ 的方差大
+
+#figure(
+  image("../../img/ELBO in VAE.png", width:86%),
+  caption: [*ELBO and Maximum Likelihood Objectives in VAE*
+    
+    This image illustrates the difference between the Maximum Likelihood (ML) objective and the Evidence Lower Bound (ELBO) objective in the context of a Variational Autoencoder (VAE), highlighting the roles of the encoder and decoder in the data and latent spaces.
+  ],
+) 
+
+#let body-text = 10pt
+#let summary-text = 11pt
+
+图片展示了变分自编码器的两个过程：编码和解码，并且分别展示了数据空间（x-space）和潜在空间（z-space）的关系。
+#grid(
+  columns: (5fr, 5fr),
+  gutter: 16pt,
+
+  column-gutter: 1fr,
+  [
+    #text(size: body-text)[
+      #set list(marker: text(red)[#sym.notes.up])
+      左图（编码过程）：
+      - 数据分布 $q_D (x)$：数据在x空间的分布。
+      - 编码器 $q_phi.alt (cal(z)|x)$ ：将数据点从x空间编码到z空间，生成潜在变量 
+        
+      - 边缘分布 $q_(phi.alt)(cal(z))$：在z空间中通过边缘化得到的潜在变量的分布。
+    
+      数据 $x$ 从数据分布 $q_D (x)$ 经过编码器 $q_phi.alt (cal(z)|x)$ 映射到潜在空间 $cal(z)$。在潜在空间中，生成边缘分布 $q_phi.alt (cal(z))$。
+    ]
+  ],
+
+  [
+    #text(size: body-text)[
+      #set list(marker: text(blue)[#sym.notes.up])
+      右图：(解码过程)
+      - 先验分布 $p_theta (cal(z))$：假设的潜在变量在z空间的分布，通常是标准正态分布。
+  
+      - 解码器 $p_theta (x|cal(z))$：将潜在变量从z空间解码回x空间，生成数据点。
+  
+      - 边缘分布 $p_theta (x)$：在x空间中通过边缘化得到的生成数据的分布。
+  
+      先验分布 $p_theta (cal(z))$ 提供了潜在变量 $cal(z)$ 的初始分布。解码器 $p_theta (x|cal(z))$ 将潜在变量 $cal(z)$ 映射回数据空间 $x$。在数据空间中，生成边缘分布$p_theta (x)$。
+    ]
+  ]
+)
+
+== Blurriness of generative model
+#v(.9em)
+2.7里面提到,优化ELBO相当于最小化 $D_"KL" (q_(cal(D),phi.alt) (x, z)||p_theta (x, z))$。如果$q_(cal(D),phi.alt) (x, z)$和$p_θ (x, z)$之间不可能完美拟合，那么$p_θ (x, z)$和$p_θ (x)$的方差最终将大于方差$ q_(cal(D),phi.alt) (x, z)$和数据$ q_(cal(D),phi.alt)(x)$。这是由于KL散度的方向;
+
+如果$(x,z)$的值可能在 $q_(cal(D),phi.alt)$下 ，但不在$p_θ$下，则 $bb( E ) _ ( q _ ( cal( D ), phi.alt ) ( bold( upright( x ) ), bold( upright( z ) ) ) ) [ log p _ ( frak( theta ) ) ( bold( upright( x ) ), bold( upright( z ) ) ) ]$ 项趋于无穷。然而，反过来就不成立了:生成模型只在$(x, z)$的值上放置概率质量而在$q_(cal(D),phi.alt)$下没有支持时受到轻微的惩罚。
 
 
+因此，“模糊性”问题可以通过选择一个足够灵活的推理模型和/或一个足够灵活的生成模型来解决。
 
