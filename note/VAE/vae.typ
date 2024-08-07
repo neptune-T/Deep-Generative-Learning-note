@@ -477,9 +477,9 @@ epsilon.alt tilde p ( epsilon.alt ) \ z = g ( phi.alt, x, epsilon.alt ) \ tilde(
 $
 这一系列操作可以在TensorFlow等软件中表示为符号图，并毫不费力地微分参数θ和φ.
 
-该算法最初被称为_Auto-Encoding Variational Bayes _(AEVB)算法。更一般地说，重新参数化的ELBO估计被称为随机梯度变分贝叶斯_(SGVB)_估计。这个估计器也可以用来估计模型参数的后验.
+该算法最初被称为*_Auto-Encoding Variational Bayes _(AEVB)*算法。更一般地说，重新参数化的ELBO估计被称为随机梯度变分贝叶斯_(SGVB)_估计。这个估计器也可以用来估计模型参数的后验.
 
-=== Computation of log qφ(z|x)
+=== Computation of log $q_phi.alt (z|x)$
 #v(.9em)
 ELBO(估计量)的计算需要计算密度对数$q_phi.alt (z|x)$，给定值$x$，并给定值$z$或等价的$epsilon$。这个对数密度是一个简单的计算，只要我们选择正确的变换$g()$。
 
