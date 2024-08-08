@@ -41,11 +41,9 @@
             "id": "280f46143bdcc9a2",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "pdf",
               "state": {
-                "file": "note/VAE/mcmc - gecv.md",
-                "mode": "source",
-                "source": false
+                "file": "note/papter/image to image/1611.07004v3.pdf"
               }
             }
           }
@@ -116,7 +114,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "note/VAE/mcmc - gecv.md",
+                "file": "note/papter/image to image/1611.07004v3.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -133,7 +131,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "note/VAE/mcmc - gecv.md",
+                "file": "note/papter/image to image/1611.07004v3.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -156,7 +154,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "note/VAE/mcmc - gecv.md"
+                "file": "note/papter/image to image/1611.07004v3.pdf"
               }
             }
           }
@@ -179,12 +177,12 @@
   },
   "active": "280f46143bdcc9a2",
   "lastOpenFiles": [
+    "note/VAE/mcmc - gecv.md",
     "note/papter/image to image/1611.07004v3.pdf",
     "note/papter/image to image/1611.07004v3.pdf.crdownload",
     "note/papter/image to image",
     "note/papter/新建文件夹",
     "diary/2024-08-0 4.5.md",
-    "note/VAE/mcmc - gecv.md",
     "diary/2024-08-03.md",
     "diary/2024-08-02🥲.md",
     "diary/2024-08-01😶‍🌫️.md",
@@ -197,7 +195,6 @@
     "probability_logic_of_science",
     "src/autoencoder/probability_logic_of_science",
     "src/autoencoder/autoencoder.py",
-    "autoencoder.py",
     "diary/2024-07-19😙.md",
     "diary/2024-07-08😴.md",
     "note/GAN/需要知道的东西.md",
