@@ -172,4 +172,3 @@ $
 
 
 == Score-based Generative Models (SGMs)
-de 
