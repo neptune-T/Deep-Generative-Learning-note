@@ -5,14 +5,22 @@
 ## 包括的笔记有:
 
 - [x] **autoencoder**
+
 - [x] **pca** (有对应的代码)
+
 - [x] vae
-- <del>[x] gan (已学完,待补充)</del>
+
+ - [ ] <del> gan (已学完,待补充)</del>
+
 - [x] cgan (有对应的代码)
-- <del>[x] Convex Optimization(完全没学,完全没写,待补充)</del>
-- <del>[x] Probability plot(起了个头,待补充)</del>
-- <del>[x] diffusion (已学完,待补充)</del>
-- [x] pku实习生面试ppt 
+
+- [ ] <del> Convex Optimization(完全没学,完全没写,待补充)</del>
+
+- [ ] <del> Probability plot(起了个头,待补充)</del>
+
+- [ ] <del>diffusion (已学完,待补充)</del>
+
+- [x] pku实习生面试ppt
 
 ## 部分笔记截图如下:
 
