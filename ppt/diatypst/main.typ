@@ -4,7 +4,7 @@
   title: "Academic Presentation", // Required
   subtitle: "Introduction and Research Achievements",
   date: "10.14.2024",
-  authors: ("tianshan zhang"),
+  authors: ("plote1"),
 
   // Optional Styling
   ratio: 16/9,
@@ -36,15 +36,15 @@
   columns: (120pt, 1fr),
   gutter: 16pt,
   [
-    #image("jpg/people.jpg", width: 90%)
+    // #image("jpg/people.jpg", width: 90%)
   ],
   [
     #text(15pt, weight: "bold")[Personal Information]
 
-    #info("Name", "张天山")
-    #info("Institution", "Dalian Jiaotong University")
-    #info("Major", "Materials Forming and Control Engineering + Software Engineering")
-    #info("GPA", "86.7/100 (Rank 11/60)")
+    #info("Name", "plote")
+    #info("Institution", "bilibili University")
+    #info("Major", "math/sofeware/ai/cs")
+    #info("GPA", "0")
 
 
     #text(14pt, weight: "bold")[Key Courses]
@@ -52,9 +52,9 @@
     #grid(
       columns: (1fr, 1fr),
       gutter: 8pt,
-      [Advanced Mathematics (98)], [Introduction to Programming (95)],
-      [Linear Algebra (100)], [Probability and Statistics (95)],
-      [Computer Organization Principles (92)], [Object-Oriented Programming (95)],
+      [Advanced Mathematics ], [Introduction to Programming ],
+      [Linear Algebra ], [Probability and Statistics ],
+      [Computer Organization Principles ], [Object-Oriented Programming ],
     )
     #text(14pt, weight: "bold")[Technical Skills]
     #align(left)[
@@ -70,7 +70,7 @@
 
 #align(center)[
   #block(width: 90%, inset: 1em)[
-    #text(weight: "bold", 1.5em)[国家级大创,互联网加省铜奖(第一负责人)]
+    #text(weight: "bold", 1.5em)[比赛奖项]
 
     研究背景:针对现有导盲辅具视野狭窄、手部占用等问题。研发一种基于多模态感知与触觉反馈结合的便捷式盲人辅助设备，为视障用户提供导航、避障和物体识别等功能。
 
@@ -92,9 +92,9 @@
        
           2023年已评优结题并推荐参加年会
          
-          2024年国家级立项，项日编号:202410150007
+          无
           
-          互联网+省铜奖 ]
+          无 ]
         ]
       ],
   [
@@ -132,7 +132,7 @@
 
 #align(left)[
   #block(width: 90%, inset: 1em)[
-    #text(weight: "bold", 1.1em)[辽宁省计算机博弈大赛一等奖(队长)]
+    #text(weight: "bold", 1.1em)[水赛打着玩]
 
     #v(.9em)
 
@@ -200,7 +200,7 @@
 
 #align(center)[
   #block(width: 90%, inset: 1em)[
-    #text(weight: "bold", 1.1em)[大连九五高科新能源数据爬取和分析实习生]
+    #text(weight: "bold", 1.1em)[实习生]
 
     #v(2em)
 

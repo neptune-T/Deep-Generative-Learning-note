@@ -747,6 +747,7 @@ $p_theta (x,cal(z))$ 的方差通常会比 $q_(D,phi.alt)(x,cal(z))$ 的方差�
   ],
 ) 
 
+
 #let body-text = 10pt
 #let summary-text = 11pt
 
@@ -792,4 +793,8 @@ $p_theta (x,cal(z))$ 的方差通常会比 $q_(D,phi.alt)(x,cal(z))$ 的方差�
 
 
 因此，“模糊性”问题可以通过选择一个足够灵活的推理模型和/或一个足够灵活的生成模型来解决。
+
+
+
+
 
